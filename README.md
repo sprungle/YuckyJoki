@@ -1,6 +1,6 @@
 # YuckyJoki
 
-(contributors, feel free to edit this part!)
+(contributors, feel free to edit this file!)
 
 This is a web development project for software that brings together people loooking for a boat ride and those offering one.
 
@@ -11,8 +11,10 @@ This is a school project and it is built in collaboration by five first year IT 
 2. Tools:
 
 3. Who did what parts of the project (if groupwork)
-3.1. Front end:
-3.2. Back end:
+
+  3.1. Front end:
+
+  3.2. Back end:
 
 4. Application architecture, database schema, APIs, maybe ABIs, UI/UX plan, protocols:
 
