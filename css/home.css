@@ -69,7 +69,7 @@
 div.section1{
 position: absolute;
 width: 100%;
-height: 50rem;
+height: 60rem;
 left: 0px;
 top: 153px;
 background: url('E:/studies/WPP/YuckyJoki/photos/oulu-100627.jpg');
@@ -175,4 +175,41 @@ line-height: 60px;
 text-align: center;
 color: #FFFFFF;
 
+}
+div.section2{
+  position: absolute;
+  width: 100%;
+  height: 60rem;
+  left: 0px;
+  top: 100%;
+  background: url('E:/studies/WPP/YuckyJoki/photos/oulu-2035445.jpg');
+  background-size: cover;
+  background-position-x: 0;
+  background-position-y:0;
+  }
+  div.p2{
+  position: absolute;
+  width: 890px;
+  height: 468px;
+  left: 50%;
+  top: 110%;
+  background: #C4C4C4;
+  mix-blend-mode: multiply;
+    }
+    /* Footer */
+
+
+/* Auto layout */
+div.footer {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0px;
+
+position: absolute;
+width: 100%;
+height: 469px;
+left: 0px;
+top:190%;
+background: #35608A;
 }
