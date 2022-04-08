@@ -6,7 +6,7 @@ const app = express();
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "/contact.html"));
   });
-app.use('/', serverStatic(path.join(__dirname, 'public')));
+app.use('/', serverStatic(path.join(__dirname, 'Public')));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
