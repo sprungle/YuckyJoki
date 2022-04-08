@@ -1,6 +1,7 @@
 # YuckyJoki
 
 (contributors, feel free to edit this file!)
+testtesttest
 
 This is a web development project for software that brings together people loooking for a boat ride and those offering one.
 
