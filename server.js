@@ -9,6 +9,11 @@ app.get("/", function(req, res) {
 });
 app.use('/', serveStatic(path.join(__dirname, 'public')));
 
+app.get("/home", function(req, res) {
+  res.sendFile(path.join(__dirname, "/home.html"));
+});
+app.use('/home', serveStatic(path.join(__dirname, 'public')));
+
 app.get("/about", function(req, res) {
   res.sendFile(path.join(__dirname, "/about.html"));
 });
