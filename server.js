@@ -7,7 +7,7 @@ const app = express();
 app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "/backend/home.html"));
 });
-app.use('/', serveStatic(path.join(__dirname, 'Public')));
+app.use('/backend/', serveStatic(path.join(__dirname, 'Public')));
 
 app.get("/about", function(req, res) {
   res.sendFile(path.join(__dirname, "/about.html"));
