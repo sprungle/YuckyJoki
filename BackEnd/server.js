@@ -9,12 +9,12 @@ app.get("/", function(req, res) {
 });
 app.use('/', serveStatic(path.join(__dirname, 'Public')));
 
-app.get("/", function(req, res) {
+app.get("/about", function(req, res) {
   res.sendFile(path.join(__dirname, "/about.html"));
 });
 app.use('/about', serveStatic(path.join(__dirname, 'Public')));
 
-app.get("/", function(req, res) {
+app.get("/contact", function(req, res) {
     res.sendFile(path.join(__dirname, "/contact.html"));
   });
 app.use('/contact', serveStatic(path.join(__dirname, 'Public')));
