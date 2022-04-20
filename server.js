@@ -5,27 +5,27 @@ const express = require("express");
 const app = express();
 
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "/home.html"));
+  res.sendFile(path.join(__dirname, "/back.home.html"));
 });
 app.use('/', serveStatic(path.join(__dirname, 'public')));
 
 app.get("/home", function(req, res) {
-  res.sendFile(path.join(__dirname, "/home.html"));
+  res.sendFile(path.join(__dirname, "/back.home.html"));
 });
 app.use('/home', serveStatic(path.join(__dirname, 'public')));
 
 app.get("/about", function(req, res) {
-  res.sendFile(path.join(__dirname, "/about.html"));
+  res.sendFile(path.join(__dirname, "/back.about.html"));
 });
 app.use('/about', serveStatic(path.join(__dirname, 'public')));
 
 app.get("/contact", function(req, res) {
-    res.sendFile(path.join(__dirname, "/contact.html"));
+    res.sendFile(path.join(__dirname, "/back.contact.html"));
   });
 app.use('/contact', serveStatic(path.join(__dirname, 'public')));
 
 app.get("/registrationForm", function(req, res) {
-  res.sendFile(path.join(__dirname, "/registrationForm.html"));
+  res.sendFile(path.join(__dirname, "/back.registrationForm.html"));
 });
 app.use('/registrationForm', serveStatic(path.join(__dirname, 'public')));
 
