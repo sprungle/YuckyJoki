@@ -10,22 +10,22 @@ app.get("/", function(req, res) {
 app.use('/', serveStatic(path.join(__dirname, 'public')));
 
 app.get("/home", function(req, res) {
-  res.sendFile(path.join(__dirname, "/back.home.html"));
+  res.sendFile(path.join(__dirname, "/backend/back.home.html"));
 });
 app.use('/home', serveStatic(path.join(__dirname, 'public')));
 
 app.get("/about", function(req, res) {
-  res.sendFile(path.join(__dirname, "/back.about.html"));
+  res.sendFile(path.join(__dirname, "/backend/back.about.html"));
 });
 app.use('/about', serveStatic(path.join(__dirname, 'public')));
 
 app.get("/contact", function(req, res) {
-    res.sendFile(path.join(__dirname, "/back.contact.html"));
+    res.sendFile(path.join(__dirname, "/backend/back.contact.html"));
   });
 app.use('/contact', serveStatic(path.join(__dirname, 'public')));
 
 app.get("/registrationForm", function(req, res) {
-  res.sendFile(path.join(__dirname, "/back.registrationForm.html"));
+  res.sendFile(path.join(__dirname, "/backend/back.registrationForm.html"));
 });
 app.use('/registrationForm', serveStatic(path.join(__dirname, 'public')));
 
