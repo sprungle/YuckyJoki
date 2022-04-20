@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "/back.home.html"));
+  res.sendFile(path.join(__dirname, "/backend/back.home.html"));
 });
 app.use('/', serveStatic(path.join(__dirname, 'public')));
 
