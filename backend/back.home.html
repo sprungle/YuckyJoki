@@ -1,32 +1,47 @@
 <html>
-<head>
-<title>Login Form Validation</title>
-<!-- Include CSS File Here -->
-<link rel="stylesheet" href="style.css"/>
-<!-- Include JS File Here -->
-<script src="login.js"></script>
-</head>
+        <head>
+        <title>Login Form Validation</title>
+        <!-- Include CSS File Here -->
+        <link rel="stylesheet" href="home.css"/>
+        <!-- Include JS File Here -->
+        <script src="login.js"></script>
+        </head>
 <body>
-<div class="h1">
-<div class="topnav">
-        <a class="active" href="#home">Home</a>
-        <a href="about">About</a>
-        <a href="contact">Contact</a>
-        <input type="text" placeholder="Search..">
-</div>
-</div>
+        <div class="h1"><img src="photos\logo.png" alt="YackyJoki logo" style="float:top-right; width:190px;">
+                <div class="topnav">
+                        <a class="active" href="#home">Home</a>
+                        <a href="about.html">About</a>
+                        <a href="contact.html">Contact</a>
+                        <input type="text" placeholder="Search..">
+                </div>
+        </div>
+<div class="section1">
+        <div class="title"> Experience Oulu on Water with YuckyJoki! </div>
+        <div class="p1">Admire the peaceful shores of Oulu river from a boat
+                or spend an evening rocking the waves with friends. 
+        <br><br>
+        Every boat ride is unique, create your own route or choose from available offers.
+        <br><br>
+        YuckyJoki is the first service provider to connect boat owners and those 
+        longing to feel the fresh sea breeze!  
+        </div>
 <div class="container">
-<div class="main">
-<form id="form_id" method="post" name="myform">
+        <div class="main">
+                <form id="form_id" method="post" name="myform">
 
-<label>Username</label>
-<input type="Username" name="Username" id="username"/> 
-<label>Password :</label>
-<input type="password" name="password" id="password"/>
-<input type="button" value="Let's Sail!" id="submit" onclick="validate()"/>
-</form>
-<span><b class="note"><a href="url">Not a sailer? Register here</a></span>
+                <label>Username: </label>
+                <input type="text" name="username" id="username"/>
+                <label>Password :</label>
+                <input type="password" name="password" id="password"/>
+                <input type="button" value="Let's Sail!" id="submit" onclick="validate()"/>
+                </form>
+        <span><b class="note"><a onclick = 'f=window.open("E:/studies/WPP/html_JS_CSS/registrationForm.html","fenetre","width=600, height=600")'style="cursor: pointer;"> Not a sailer? Register here</a></span>
+        </div>
 </div>
+
+<div class="section2"></div>
+<div class="p2"></div>
+<div class="footer"></div>
 </div>
 </body>
 </html>
