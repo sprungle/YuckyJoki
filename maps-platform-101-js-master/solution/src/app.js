@@ -18,7 +18,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import MarkerClusterer from '@google/markerclustererplus';
 
 const apiOptions = {
-  apiKey: "AIzaSyB0kxzH8w0xqvc7cyjCH3Fidj9my1UllA4"
+  apiKey: 
 }
 
 const loader = new Loader(apiOptions);
@@ -42,15 +42,42 @@ const locations = [
   { loc: { lat: 65.011592, lng: 25.459289}, name: "stop9" },
   { loc: { lat: 65.018684, lng: 25.461587}, name: "stop10" } ]
 class user {
-  constructor(userType) {
+  constructor(userType, count) {
     this.route = [];
     this.userType = userType;
-}}
+    this.count= 0;
+  }
+  addWayPoint(wayPoint){this.route.push(wayPoint);}
+  removeWayPoint(wayPointName){
+     for(var i=0; i< this.route.length; i++){
+       if(this.route[i].name == wayPointName){
+         this.route.splice(i, 1);
+         break;
+       }
+    } 
+  }
+}
 let passenger = 1;
 let users = new user(passenger); //later linked to dbg
 let circle = null;
 
+ function updateHiddenP(){
+    const hidden = document.getElementById("hidden");
+    hidden.style.display = 'flex';
+    const passengers =document.getElementById("passengers"); 
+    passengers.style.display = 'flex';
+  }
+  const book = document.getElementById("book");
+  book.addEventListener("click", () => { updateHiddenP });
 
+  function updateHiddenC(){
+    const hidden = document.getElementById("hidden");
+    hidden.style.display = 'flex';
+    const captains = document.getElementById("captains");
+    captains.style.display = 'flex';
+  }
+ const offer = document.getElementById("offer");
+  offer.addEventListener("click", () => { updateHiddenC });
 
 function displayMap() {
   const mapOptions = {
@@ -60,6 +87,20 @@ function displayMap() {
   };
   const mapDiv = document.getElementById('map');
   return new google.maps.Map(mapDiv, mapOptions);
+}
+   
+function eventAddWpListener(el, wpIdx){
+  el.addEventListener('click', event => { 
+    users.addWayPoint(locations[wpIdx]);
+    drawTable();  
+  });
+}
+
+function eventAddRemWpListener(el, rtIdx){
+  el.addEventListener('click', event => { 
+    users.removeWayPoint( users.route[rtIdx].name ); 
+    drawTable(); 
+  });
 }
 
 function addMarkers(map) {
@@ -81,28 +122,51 @@ function addMarkers(map) {
       circle = drawCircle(map, location);
       var element = document.getElementById("loc");
       element.innerHTML = "You selected " + locations[i].name;
-      document.getElementById("add").style.display = "flex";
-      var element =document.getElementById("add");
-      function clickHandler(event){
-        var table = document.getElementById("tab");
-        var tr = document.createElement('tr');
-        table.appendChild(tr);
-        var td = document.createElement('td');
-        tr.appendChild(td);
-        td.innerHTML = locations[i].name;
-    }
-      element.removeEventListener('click', clickHandler);
-      var new_element = element.cloneNode(true);
-      element.parentNode.replaceChild(new_element, element);
-      new_element.addEventListener('click', clickHandler);
+        
+      var addbtn =document.getElementById("add");
+      addbtn.style.display = "flex";
+      var new_element = addbtn.cloneNode(true);
+      addbtn.parentNode.replaceChild(new_element, addbtn);
+      eventAddWpListener(new_element, i);
     });
-
-
+  
+ 
     markers.push(marker);
   }
   return markers;
 }
 
+function drawTable (){
+  var tab = document.getElementById("tab");
+  var table = document.getElementById("tabb");
+  if(table){
+    table.parentNode.removeChild(table);
+  }
+  table = document.createElement('table');
+  table.setAttribute("id","tabb");
+  tab.appendChild(table);
+  
+  for(var i=0; i<users.route.length; i++){
+    if(users.route.length < 5) {
+    var tr = document.createElement('tr');
+    tr.setAttribute("id", users.route[i].name);
+    table.appendChild(tr);
+    var td = document.createElement('td');
+    td.setAttribute("id","td0");
+    var td1 = document.createElement('td');
+    td1.setAttribute("id","td1");
+    tr.appendChild(td);
+    tr.appendChild(td1);
+    let btn = document.createElement("button");
+    btn.setAttribute("id","clearbtn");
+    td1.appendChild(btn);
+    btn.innerHTML = "x";
+    td.innerHTML = users.route[i].name;
+    eventAddRemWpListener(btn, i)
+    }
+    else {alert("Ops! You reached the maximum number of stops, please make sure you have included your final destination!");}
+  }
+}
 function clusterMarkers(map, markers) {
   const clustererOptions = { imagePath: './img/m' };
   const markerCluster = new MarkerClusterer(map, markers, clustererOptions);
@@ -116,7 +180,7 @@ function addStopToRoute(currentUser, markers) {
     });
   });
 }
-//
+
 function drawCircle(map, location) {
   const circleOptions = {
     strokeColor: '#FF0000',
@@ -129,4 +193,7 @@ function drawCircle(map, location) {
   const circle = new google.maps.Circle(circleOptions);
   return circle;
 }
+
+
+
 
