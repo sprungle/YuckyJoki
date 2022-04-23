@@ -21,14 +21,22 @@ const apiOptions = {
   apiKey: 
 }
 
-const loader = new Loader(apiOptions);
-
-loader.load().then(() => {
-  console.log('Maps JS API loaded');
-  const map = displayMap();
-  const markers = addMarkers(map);
-  clusterMarkers(map, markers);
-});
+function initJS(event){
+  const loader = new Loader(apiOptions);
+  loader.load().then(() => {
+    console.log('Maps JS API loaded');
+    const map = displayMap();
+    const markers = addMarkers(map);
+    clusterMarkers(map, markers);
+  });
+  document.getElementById("book").addEventListener("click", updateHiddenP );
+  document.getElementById("offer").addEventListener("click", updateHiddenC);
+  document.getElementById("clear").addEventListener("click", clearContent);
+  document.getElementById("addTrip").addEventListener("click", addTrip); 
+  document.getElementById("offer").disabled = true;
+  document.getElementById("book").disabled = true;
+}
+document.addEventListener("DOMContentLoaded", initJS);
 
 const locations = [
   { loc: { lat: 65.040262, lng: 25.422504}, name: "stop1" },
@@ -47,7 +55,19 @@ class user {
     this.userType = userType;
     this.count= 0;
   }
-  addWayPoint(wayPoint){this.route.push(wayPoint);}
+  addWayPoint(wayPoint){ 
+    for(var i=0; i< this.route.length; i++){
+      if(this.route[i].name == wayPoint.name){
+       alert("Already added!");
+       return;
+      }
+      if (this.route.length > 5){
+        alert("Ops! You reached the maximum number of stops, please make sure you have included your final destination!");
+        return;
+      }
+    }
+    this.route.push(wayPoint);
+  }
   removeWayPoint(wayPointName){
      for(var i=0; i< this.route.length; i++){
        if(this.route[i].name == wayPointName){
@@ -61,23 +81,32 @@ let passenger = 1;
 let users = new user(passenger); //later linked to dbg
 let circle = null;
 
- function updateHiddenP(){
-    const hidden = document.getElementById("hidden");
-    hidden.style.display = 'flex';
-    const passengers =document.getElementById("passengers"); 
-    passengers.style.display = 'flex';
-  }
-  const book = document.getElementById("book");
-  book.addEventListener("click", () => { updateHiddenP });
-
-  function updateHiddenC(){
-    const hidden = document.getElementById("hidden");
-    hidden.style.display = 'flex';
-    const captains = document.getElementById("captains");
-    captains.style.display = 'flex';
-  }
- const offer = document.getElementById("offer");
-  offer.addEventListener("click", () => { updateHiddenC });
+function updateHiddenP(event){
+  document.getElementById("hidden").style.display = 'block';
+  document.getElementById("passengers").style.display = 'flex';
+  document.getElementById("captains").style.display = 'none';
+  document.getElementById("box").style.display = 'none';
+  document.getElementById("buttons").style.display = 'none';
+  document.getElementById("tab").style.display = 'none';
+}
+  
+function updateHiddenC(event){ 
+  document.getElementById("hidden").style.display = 'block';
+  document.getElementById("captains").style.display = 'flex';
+  document.getElementById("passengers").style.display = 'none';
+  document.getElementById("box").style.display = 'none';
+  document.getElementById("buttons").style.display = 'none';
+  document.getElementById("tab").style.display = 'none';
+}
+function clearContent (event){ 
+  document.getElementById("hidden").style.display = 'none';
+  document.getElementById("box").style.display = 'flex';
+  document.getElementById("buttons").style.display = 'flex';
+  document.getElementById("tab").style.display = 'flex';
+}
+function addTrip () {
+  reload();
+}
 
 function displayMap() {
   const mapOptions = {
@@ -121,7 +150,7 @@ function addMarkers(map) {
       }
       circle = drawCircle(map, location);
       var element = document.getElementById("loc");
-      element.innerHTML = "You selected " + locations[i].name;
+      element.innerHTML = "You selected " + locations[i].name + "; Please add at least 2 stops and maximum 6 stops";
         
       var addbtn =document.getElementById("add");
       addbtn.style.display = "flex";
@@ -147,7 +176,6 @@ function drawTable (){
   tab.appendChild(table);
   
   for(var i=0; i<users.route.length; i++){
-    if(users.route.length < 5) {
     var tr = document.createElement('tr');
     tr.setAttribute("id", users.route[i].name);
     table.appendChild(tr);
@@ -163,9 +191,10 @@ function drawTable (){
     btn.innerHTML = "x";
     td.innerHTML = users.route[i].name;
     eventAddRemWpListener(btn, i)
-    }
-    else {alert("Ops! You reached the maximum number of stops, please make sure you have included your final destination!");}
   }
+  var dis = (users.route.length < 2) ? true : false;
+  document.getElementById("offer").disabled = dis;
+  document.getElementById("book").disabled = dis;  
 }
 function clusterMarkers(map, markers) {
   const clustererOptions = { imagePath: './img/m' };
