@@ -22,17 +22,20 @@ const apiOptions = {
 }
 
 function initJS(event){
+  getLocation(); // gets the user location
   const loader = new Loader(apiOptions);
   loader.load().then(() => {
     console.log('Maps JS API loaded');
     const map = displayMap();
     const markers = addMarkers(map);
-    clusterMarkers(map, markers);
-  });
+    clusterMarkers(map, markers);    
+    addUserMarker(map);
+  });  
   document.getElementById("book").addEventListener("click", updateHiddenP );
   document.getElementById("offer").addEventListener("click", updateHiddenC);
   document.getElementById("clear").addEventListener("click", clearContent);
-  document.getElementById("addTrip").addEventListener("click", addTrip); 
+  document.getElementById("addTripC").addEventListener("click", addCapTrip);
+  document.getElementById("addTripP").addEventListener("click", addPassTrip);  
   document.getElementById("offer").disabled = true;
   document.getElementById("book").disabled = true;
 }
@@ -50,10 +53,11 @@ const locations = [
   { loc: { lat: 65.011592, lng: 25.459289}, name: "stop9" },
   { loc: { lat: 65.018684, lng: 25.461587}, name: "stop10" } ]
 class user {
-  constructor(userType, count) {
+  constructor(userType) {
     this.route = [];
     this.userType = userType;
     this.count= 0;
+    this.loc= null;
   }
   addWayPoint(wayPoint){ 
     for(var i=0; i< this.route.length; i++){
@@ -62,7 +66,7 @@ class user {
        return;
       }
       if (this.route.length > 5){
-        alert("Ops! You reached the maximum number of stops, please make sure you have included your final destination!");
+        alert("You reached the maximum number of stops, please make sure you have included your final destination!");
         return;
       }
     }
@@ -77,9 +81,26 @@ class user {
     } 
   }
 }
+
 let passenger = 1;
 let users = new user(passenger); //later linked to dbg
 let circle = null;
+
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(userPosition);
+  } 
+  else { 
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+function userPosition(position) {
+  users.loc = { lat: position.coords.latitude, 
+                lng: position.coords.longitude
+              };
+}
 
 function updateHiddenP(event){
   document.getElementById("hidden").style.display = 'block';
@@ -97,6 +118,7 @@ function updateHiddenC(event){
   document.getElementById("box").style.display = 'none';
   document.getElementById("buttons").style.display = 'none';
   document.getElementById("tab").style.display = 'none';
+
 }
 function clearContent (event){ 
   document.getElementById("hidden").style.display = 'none';
@@ -104,15 +126,108 @@ function clearContent (event){
   document.getElementById("buttons").style.display = 'flex';
   document.getElementById("tab").style.display = 'flex';
 }
-function addTrip () {
-  reload();
+
+function routeToString(route){
+  var str = "";
+  for(var i=0; i<route.length; ++i){
+    str += route[i].name;
+    if(i<route.length-1) 
+     str += ", ";
+  }
+  return str;
+}
+
+var captainServerSideData = [];
+var passengerServerSideData = [];
+
+function addCapTrip() { //tempdatafetch
+  var bName = document.getElementById('bname').value;
+  var seats = document.getElementById('seatsC').value + " seats";
+  var currencyField = document.getElementById('currencyField').value;
+  var route = routeToString(users.route);
+  captainServerSideData.push({usern:"temp",contact:"temp", boattype:bName, seats:seats, price:currencyField, route: route});
+  captainCall ();
+  clearContent();
+  
+}
+
+function addPassTrip() { //tempdatafetch
+  var seats = document.getElementById('seatsP').value + " seats";
+  var route = routeToString(users.route);
+  passengerServerSideData.push({usern:"temp",contact:"temp", seats:seats, route:route});
+  passengerCall();
+  clearContent();  
+}
+
+function captainCall (){
+  var captains = document.getElementById("rectangle15");
+  for (let i = 0; i < captainServerSideData.length; i++) {
+    var capTab = document.createElement('table');
+    capTab.setAttribute("id","capTab");
+    captains.appendChild(capTab);
+    var tr = document.createElement('tr');
+    capTab.appendChild(tr);
+    var td0 = document.createElement('td');
+    tr.appendChild(td0);
+    var iconC = document.createElement('a');
+    td0.appendChild(iconC);
+    iconC.setAttribute("class", "fa-regular fa-ship");
+    var td1 = document.createElement('td');
+    tr.appendChild(td1);
+    var td2 = document.createElement('td');
+    tr.appendChild(td2);
+    var td3 = document.createElement('td');
+    tr.appendChild(td3);
+    var td4 = document.createElement('td');
+    tr.appendChild(td4);
+    var td5 = document.createElement('td');
+    tr.appendChild(td5);
+    var td6 = document.createElement('td');
+    td6.setAttribute("id","td6");
+    tr.appendChild(td6);
+    td1.innerHTML = captainServerSideData[i].usern;
+    td2.innerHTML = captainServerSideData[i].contact;
+    td3.innerHTML = captainServerSideData[i].boattype;
+    td4.innerHTML = captainServerSideData[i].seats;
+    td5.innerHTML = captainServerSideData[i].price;
+    td6.innerHTML = captainServerSideData[i].route;
+  }
+}
+function passengerCall(){
+  var passengers = document.getElementById("rectangle16");
+  for (let i = 0; i <  passengerServerSideData.length; i++) {
+    var passTab = document.createElement('table');
+    passTab.setAttribute("id","passTab");
+    passengers.appendChild(passTab);
+    var tr = document.createElement('tr');
+    passTab.appendChild(tr);
+    var td0 = document.createElement('td');
+    tr.appendChild(td0);
+    var iconP = document.createElement('a');
+    td0.appendChild(iconP);
+    iconP.setAttribute("class", "fa-regular fa-user");
+    var td1 = document.createElement('td');
+    tr.appendChild(td1);
+    var td2 = document.createElement('td');
+    tr.appendChild(td2);
+    var td3 = document.createElement('td');
+    tr.appendChild(td3);
+    var td4 = document.createElement('td');
+    td4.setAttribute("id","td4");
+    tr.appendChild(td4);
+    td1.innerHTML = passengerServerSideData[i].usern;
+    td2.innerHTML = passengerServerSideData[i].contact;
+    td3.innerHTML = passengerServerSideData[i].seats;
+    td4.innerHTML = passengerServerSideData[i].route;
+
+  }
 }
 
 function displayMap() {
   const mapOptions = {
     center: { lat: 65.0121, lng: 25.4651 }, 
     zoom: 14,
-    mapId: 'map'
+   // mapId: 'map'
   };
   const mapDiv = document.getElementById('map');
   return new google.maps.Map(mapDiv, mapOptions);
@@ -130,6 +245,14 @@ function eventAddRemWpListener(el, rtIdx){
     users.removeWayPoint( users.route[rtIdx].name ); 
     drawTable(); 
   });
+}
+function addUserMarker(map){
+  const marker ={
+    map: map,
+    position: users.loc,
+    icon: './img/cap.png',
+  }
+  new google.maps.Marker(marker);
 }
 
 function addMarkers(map) {
@@ -201,15 +324,6 @@ function clusterMarkers(map, markers) {
   const markerCluster = new MarkerClusterer(map, markers, clustererOptions);
 }
 
-function addStopToRoute(currentUser, markers) {
-  markers.map(marker => {
-    marker.addListener('click', event => {
-      const location = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-      currentUser.route.push(location);
-    });
-  });
-}
-
 function drawCircle(map, location) {
   const circleOptions = {
     strokeColor: '#FF0000',
@@ -222,6 +336,8 @@ function drawCircle(map, location) {
   const circle = new google.maps.Circle(circleOptions);
   return circle;
 }
+
+
 
 
 

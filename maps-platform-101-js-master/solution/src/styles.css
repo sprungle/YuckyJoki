@@ -166,10 +166,11 @@ input{
 #p1{
   position: absolute;
   top:10%;
+  left: 5%;
   font-size: 18px;
 }
 
-div.rectangle15{
+#rectangle15{
   position: absolute;
   width: 750px;
   height: 450px;
@@ -178,7 +179,21 @@ div.rectangle15{
   background: rgba(45, 45, 45, 0.5);
   border-radius: 21px;
 }
-div.rectangle16{
+  #capTab {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    display: table;
+    width: 90%;
+    justify-content: space-between;
+    color: white;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 20px;
+  }
+#rectangle16{
   position: absolute;
   width: 750px;
   height: 450px;
@@ -186,7 +201,27 @@ div.rectangle16{
   top: 60%;
   background: rgba(45, 45, 45, 0.5);
   border-radius: 21px;
+
 }
+    #passTab{
+      position: absolute;
+      display: table;
+      justify-content: space-between;
+      width: 90%;
+      margin: 1%;
+      top: 30%;
+      left: 10%;
+      color: white;
+      font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 25px;
+      line-height: 20px;
+    }
+    #td6, #td4 {
+      font-size: 15px;
+    }
+
 #t1{
 position: absolute;
 width: 612px;
@@ -344,3 +379,4 @@ color: white;
   color: #111827;
   
     }
+ 
