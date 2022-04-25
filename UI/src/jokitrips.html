@@ -1,0 +1,110 @@
+<!--
+Copyright 2020 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Map</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <link href="styles.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Play&display=swap" rel="stylesheet">
+  <script src="app.js"></script>
+  <script src="https://kit.fontawesome.com/81068a9149.js" crossorigin="anonymous"></script>
+  
+</head>
+
+<body>
+  <div class="container">
+    <div class="h1"><img src="\img\logo.png" alt="YackyJoki logo" style="float:top-right; width:150px; margin-left:5%;margin-top:1%;">
+      <div class="topnav">
+              <a class="active" href="#home">Home</a>
+              <a href="about.html">About</a>
+              <a href="contact.html">Contact</a>
+              <input type="text" placeholder="Search..">
+      </div>
+    </div>
+    <div id="content-wrap">
+      <div class="rectangle14">
+        <div id="box"><p id="loc">Select you destination from the stops on the map</p></div>
+        <div id="tab"></div>
+        <div id="buttons">
+          <button id="add" type="button">Add to route</button>
+          <button id="book" type="button">Book a ride</button>
+          <button id="offer" type="button">Offer a ride</button>
+        </div>
+        <div id="hidden">
+          <button id="clear">x</button>
+          <p id="p1">To confirm your trip please check the info below</p>
+          <div id="captains">
+               <label for="bname">what is your boat type</label>
+               <input type="text" id="bname" name="bname" placeholder="Fishing, binghy, bowrider..">
+               <label for="seatsC">how many seats remaining?</label>
+               <input type="number" id="seatsC" name="seatsC" min="1" max="99">
+               <label for="currency-field">Enter price per seat</label>
+               <input type="text" name="currency-field" id="currencyField"  value="" data-type="currency" placeholder="€9.00">
+               <button id="addTripC">Confirm trip</button>
+          </div>
+          <div id="passengers">
+            <label for="seats">how many passenger?</label>
+            <input type="number" id="seatsP" name="seatsP"
+              min="1" max="99">
+            <button id="addTripP">Confirm trip</button>
+          </div>
+        </div>
+      </div>
+      <div id="map"></div>
+      <div id="rectangle15">
+        <p id="t1">Available captains</p>
+        <div id="captainsTab"></div>
+      </div>
+      <div id="rectangle16">
+        <p id="t1">Passengers waiting</p>
+        <div id="passengersTab"></div>
+      </div>
+  <footer class="footer">
+    <div class="socialIcons">
+        <i class="fa-brands fa-facebook"   style="font-size:30px;text-shadow:1px 1px 2px #000000;"></i>
+        <i class="fa-brands fa-google-pay" style="font-size:30px;text-shadow:1px 1px 2px #000000;"></i>
+        <i class="fa-brands fa-github"     style="font-size:30px;text-shadow:1px 1px 2px #000000;"></i>
+        <i class="fa-brands fa-twitter"    style="font-size:30px;text-shadow:1px 1px 2px #000000;"></i>
+    </div>
+    <table id="makers_tab">
+        <tr>
+          <td id="name">Annina</td>
+          <td id="name">Maarit</td>
+          <td id="name">Moeez</td>
+          <td id="name">Mufida</td>
+          <td id="name">Yiaan</td>
+        </tr>
+        <tr>
+          <td id="title">Server managment</td>
+          <td id="title">User interface</td>
+          <td id="title">User interface</td>
+          <td id="title">User interface</td>
+          <td id="title">Server managment</td>
+        </tr>
+    </table>
+    <p id="p">© 2022 YuckyJoki, Inc. All rights reserved.</p>
+  </footer>
+</div>
+</body>
+</html>
