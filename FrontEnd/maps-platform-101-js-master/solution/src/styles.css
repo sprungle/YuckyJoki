@@ -1,0 +1,376 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+/* online Google font */
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+/* Add a black background color to the top navigation bar */
+.h1 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: #35608A;
+  width:100%;
+  height:6%;
+}
+.topnav {
+    position: absolute;
+    width: 80%;
+    height: 70%;
+    right: 0;
+    bottom: 0;
+    background: #d6d6d6;
+    border-radius: 35px 0px 0px 0px;
+
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 30px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    font-weight: bold;
+  }
+  
+  /* Style the "active" element to highlight the current page */
+  .topnav a.active {
+
+    color: white;
+  }
+  
+  /* Style the search box inside the navigation bar */
+  .topnav input[type=text] {
+    float: right;
+    padding: 6px;
+    border: none;
+    margin-top: 20px;
+    margin-right: 16px;
+    font-size: 17px;
+  }
+  
+  /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+  @media screen and (max-width: 600px) {
+    .topnav a, .topnav input[type=text] {
+      float: none;
+      display: block;
+      text-align: left;
+      width: 100%;
+      margin: 0;
+      padding: 14px;
+    }
+    .topnav input[type=text] {
+      border: 1px solid #ccc;
+    }
+  }
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+  position: absolute;
+  right: 8%;
+  top: 15%;
+  height: 40%;
+  width: 50%;
+  border-radius: 21px;
+}
+div.container {
+  position: relative;
+
+  }
+  /* Rectangle14 */
+  #content-wrap {
+  padding-bottom: 10rem;    /* Footer height */
+  width: 100%;
+  height: 95rem;
+  left: 0px;
+  top: 6%;
+  background: url("https://cdn.pixabay.com/photo/2020/01/28/15/15/oulu-finland-4800001_960_720.jpg");
+  background-size: cover;
+  background-position-x: 0;
+  background-position-y:0;
+  opacity: 1;
+  }
+
+div.rectangle14{
+  position: absolute;
+  width: 500px;
+  height: 40%;
+  left: 10%;
+  top: 15%;
+  bottom:60%;
+  background: rgba(45, 45, 45, 0.5);
+  border-radius: 21px; 
+ 
+}
+
+#hidden{
+  display: none;
+  color:white;
+  margin: 5%;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+}
+#passengers{
+  height: 50%;
+  width: 50%;
+  display: none;
+  flex-direction:column;
+  justify-content: center;
+  margin: 30%;
+
+}
+#captains{
+  height: 50%;
+  width: 50%;
+  display: none;
+  flex-direction:column;
+  justify-content: center;
+  margin: 30%;
+
+}
+label {
+  margin-bottom: 5px;
+  margin-top: 10px;
+  font-size: 15px;
+}
+input{
+  margin-bottom:10px;
+}
+#clear{
+  position: absolute;
+  right:5%;
+  top:3%;
+}
+#p1{
+  position: absolute;
+  top:10%;
+  left: 5%;
+  font-size: 18px;
+}
+
+#rectangle15{
+  position: absolute;
+  width: 750px;
+  height: 450px;
+  left: 10%;
+  top: 60%;
+  background: rgba(45, 45, 45, 0.5);
+  border-radius: 21px;
+}
+  #rectangle16{
+    position: absolute;
+    width: 750px;
+    height: 450px;
+    right: 8%;
+    top: 60%;
+    background: rgba(45, 45, 45, 0.5);
+    border-radius: 21px;
+}
+
+  #passTab, #capTab{
+    position: absolute;
+    display: table;
+    width: 95%;
+    width: 95%;
+    justify-content: space-between;
+    color: white;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 20px;
+  }
+
+
+  #passengersTab, #captainsTab{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 30%;
+    left: 5%;
+    }
+
+    #td6, #td4 {
+      font-size: 15px;
+    }
+
+#t1{
+position: absolute;
+width: 612px;
+height: 76px;
+left: 29px;
+font-family: 'Quicksand';
+font-style: normal;
+font-weight: 400;
+font-size: 48px;
+line-height: 60px;
+text-align: center;
+color: #FFFFFF;
+}
+#box{
+  position:absolute;
+  color: gray;
+  top: 5%;
+  left: 5%;
+  background:white;
+  width: 60%;
+  height: 10%;
+  border-radius: 4px;
+}
+#loc{
+  margin: 3%;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+}
+#tabb{
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  border-collapse: separate;
+  border-spacing: 8px;
+  width: 40%;
+  
+  
+}
+#td0{
+  padding: 15px;
+  background: #EA4335;
+  border-radius: 4px;
+  color: #fff;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+#td1 {
+  width : 20px;
+  text-align: center;
+}
+#add{
+flex-direction: row;
+align-items: center;
+padding: 10px 20px;
+position: absolute;
+width: 119px;
+height: 40px;
+left: 70%;
+top: 5%;
+background: #35608A;
+border-radius: 4px;
+color: white;
+}
+#offer{
+align-items: center;
+padding: 10px 20px;
+position: absolute;
+width: 119px;
+height: 40px;
+left: 70%;
+top: 80%;
+background: #35608A;
+border-radius: 4px;
+color: white;
+}
+#book{
+  align-items: center;
+  padding: 10px 20px;
+  position: absolute;
+  width: 119px;
+  height: 40px;
+  left: 40%;
+  top: 80%;
+  background: #35608A;
+  border-radius: 4px;
+  color: white;
+  }
+ .footer{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding: 0px;
+  position: absolute;
+  width: 100%;
+  height: 300px;
+  left: 0px;
+  top:100%;
+  background: #35608A;
+  }
+  .socialIcons {
+    display: flex;
+    flex-direction: row;
+    padding-top: 30px;
+    padding-left: 20px;
+    justify-content: space-around;
+    width: 10%;
+
+  }
+  #p{
+    position: absolute;
+    width: 40%;
+    height: 24px;
+    margin-top: 13%;
+    margin-left: 30% ;
+    /* text-base/font-normal */
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+    text-align: center;
+
+  }
+  #makers_tab{
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 2%;
+    text-align: center;
+  }
+  #title{
+  /* lead/font-normal */
+  font-family: 'Play', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  /* identical to box height, or 140% */
+  color: #FFFFFF;
+
+  }
+  #name{
+    font-family: 'Play', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  /* identical to box height, or 133% */
+  color: #111827;
+  
+    }
+ 
