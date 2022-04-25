@@ -18,7 +18,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import MarkerClusterer from '@google/markerclustererplus';
 
 const apiOptions = {
-  apiKey: 
+  apiKey: ""
 }
 
 function initJS(event){
@@ -160,18 +160,25 @@ function addPassTrip() { //tempdatafetch
 }
 
 function captainCall (){
-  var captains = document.getElementById("rectangle15");
-  for (let i = 0; i < captainServerSideData.length; i++) {
-    var capTab = document.createElement('table');
-    capTab.setAttribute("id","capTab");
+  var rectangle15 = document.getElementById("rectangle15");
+  var captains = document.getElementById("captainsTab");
+  if(captains){
+    captains.parentNode.removeChild(captains);
+  }
+  captains = document.createElement('div');
+  captains.setAttribute("id","captainsTab");
+  rectangle15.appendChild(captains);
+  var capTab = document.createElement('table');
+      capTab.setAttribute("id","capTab");
     captains.appendChild(capTab);
+  for (let i = 0; i < captainServerSideData.length; i++) {
     var tr = document.createElement('tr');
     capTab.appendChild(tr);
     var td0 = document.createElement('td');
     tr.appendChild(td0);
     var iconC = document.createElement('a');
     td0.appendChild(iconC);
-    iconC.setAttribute("class", "fa-regular fa-ship");
+    iconC.setAttribute("class", "fa-light fa-sailboat");
     var td1 = document.createElement('td');
     tr.appendChild(td1);
     var td2 = document.createElement('td');
@@ -192,13 +199,21 @@ function captainCall (){
     td5.innerHTML = captainServerSideData[i].price;
     td6.innerHTML = captainServerSideData[i].route;
   }
+  
 }
 function passengerCall(){
-  var passengers = document.getElementById("rectangle16");
-  for (let i = 0; i <  passengerServerSideData.length; i++) {
-    var passTab = document.createElement('table');
+  var rectangle16 = document.getElementById("rectangle16");
+  var passengers = document.getElementById("passengersTab");
+  if(passengers){
+    passengers.parentNode.removeChild(passengers);
+  }
+  passengers = document.createElement('div');
+  passengers.setAttribute("id","passengersTab");
+  rectangle16.appendChild(passengers);
+  var passTab = document.createElement('table');
     passTab.setAttribute("id","passTab");
     passengers.appendChild(passTab);
+  for (let i = 0; i <  passengerServerSideData.length; i++) {
     var tr = document.createElement('tr');
     passTab.appendChild(tr);
     var td0 = document.createElement('td');
@@ -331,7 +346,7 @@ function drawCircle(map, location) {
     strokeWeight: 1,
     map: map,
     center: location,
-    radius: 500
+    radius: 200
   }
   const circle = new google.maps.Circle(circleOptions);
   return circle;
