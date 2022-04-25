@@ -149,7 +149,11 @@ app.put('/account', async (req, res) => {
                   res.json({ error: err });
                 }
         });
-
+// about oulu river page
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'about.html'));
+  });
+app.use('/contact', serveStatic(path.join(__dirname, 'public')));
 
 // contact page
 app.get('/contact', (req, res) => {

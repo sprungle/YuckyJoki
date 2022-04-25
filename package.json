@@ -1,7 +1,6 @@
 {
   "name": "yuckyjoki",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,10 +10,19 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "express": "^4.17.3",
+    "express": "^4.18.0",
     "pg": "^8.7.3"
   },
   "engines": {
     "node": "14.x"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sprungle/YuckyJoki.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sprungle/YuckyJoki/issues"
+  },
+  "homepage": "https://github.com/sprungle/YuckyJoki#readme",
+  "description": ""
 }
