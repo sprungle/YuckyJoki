@@ -3,7 +3,33 @@
 const serveStatic = require('serve-static')
 const path = require('path');
 const express = require("express");
+const bodyParser= require('body-parser');
+const bcrypt = require('bcrypt');
 const app = express();
+app.use(express.json());
+
+// connect to the database
+app.get('/db', async (req, res) => {
+  const { Pool } = require('pg');
+  const pool = (() => {
+  return new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+  rejectUnauthorized: false
+  }
+  });
+  })();
+  try {
+  const client = await pool.connect();
+  const result = await client.query('SELECT * FROM usersInfo;');
+  const results = { 'results': (result) ? result.rows : null};
+  res.json( results );
+  client.release();
+  } catch (err) {
+  console.error(err);
+  res.json({ error: err });
+}
+});
 
 app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "/backend/back.home.html"));
