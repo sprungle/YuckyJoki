@@ -1,5 +1,3 @@
-//IMPORTANT: If this is edited, make sure all referrals to other files have correct path!
-
 const serveStatic = require('serve-static')
 const path = require('path');
 const express = require("express");
@@ -32,27 +30,37 @@ app.get('/db', async (req, res) => {
 });
 
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "/backend/back.home.html"));
+  res.sendFile(path.join(__dirname, "/UI/home.html"));
 });
 app.use('/', serveStatic(path.join(__dirname, 'backend/public')));
 
-app.get("/home", function(req, res) {
-  res.sendFile(path.join(__dirname, "/backend/back.home.html"));
+app.get("/home.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "/UI/home.html"));
 });
 app.use('/home', serveStatic(path.join(__dirname, 'backend/public')));
 
-app.get("/about", function(req, res) {
-  res.sendFile(path.join(__dirname, "/backend/back.about.html"));
+app.get("/solution/src/index.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "/UI/solution/src/index.html"));
+});
+app.use('/', serveStatic(path.join(__dirname, 'backend/public')));
+
+app.get("/about.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "/UI/about.html"));
 });
 app.use('/about', serveStatic(path.join(__dirname, 'backend/public')));
 
-app.get("/contact", function(req, res) {
-    res.sendFile(path.join(__dirname, "/backend/back.contact.html"));
+app.get("/account.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "/UI/account.html"));
+});
+app.use('/registrationForm', serveStatic(path.join(__dirname, 'backend/public')));
+
+app.get("/contact.html", function(req, res) {
+    res.sendFile(path.join(__dirname, "/UI/contact.html"));
   });
 app.use('/contact', serveStatic(path.join(__dirname, 'backend/public')));
 
-app.get("/registrationForm", function(req, res) {
-  res.sendFile(path.join(__dirname, "/backend/back.registrationForm.html"));
+app.get("/registration.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "/UI/registration.html"));
 });
 app.use('/registrationForm', serveStatic(path.join(__dirname, 'backend/public')));
 
