@@ -73,6 +73,9 @@ header {
       border: 1px solid #ccc;
     }
   }
+  .login a:hover{
+    font-weight: bold;
+  }
 .section1{
 position: absolute;
 width: 100%;
@@ -84,6 +87,77 @@ background-size: cover;
 background-position-x: 0;
 background-position-y:0;
 }
+#registration{
+  position: fixed;
+  top: 55%;
+  left: 35%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: none;
+  justify-content:center;
+  width:400px;
+  height:450px;
+  background-color: white;
+  border-radius:5px;
+  z-index: 1;
+  padding: 20px;
+  box-shadow:
+       inset 0 -3em 3em rgba(0,0,0,0.1),
+             0 0  0 2px rgb(255,255,255),
+             0.3em 0.3em 1em rgba(0,0,0,0.3);
+  }
+  
+  #registration form{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    font-family:Arial, Helvetica, sans-serif;
+    padding: 15px;
+  }
+ 
+  #registration .tb{
+    height:28px;
+    width:230px;
+    border:1px solid #35608A;
+    color:black;
+    opacity:0.9;}
+  
+  #registration .tb:focus{
+    height:28px; border:1px solid #35608A; outline:none; border-left:5px solid #f7f7f7;}
+  #crt { 
+    position: absolute;
+    top: 426px;
+    left: 215px;
+  }
+  #clr{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: 1px solid;
+  } 
+  #clr:hover{background-color:#35608A; outline:none;  border-radius: 2px; color:#f1f1f1; border:1px solid #f1f1f1;
+    -webkit-transition: 1s; -moz-transition: 1s; transition: 1s; }
+  #registration .btn{
+  width:fit-content;
+  height:32px;
+  outline:none;  
+  color:#f7f7f7; 
+  font-weight:bold; 
+  border:0px solid #35608A;
+  border-radius: 2px;
+  font-weight: 600; 
+  color: #35608A; 
+  letter-spacing: 1px; 
+  font-size:14px; 
+  background-color:#f1f1f1; 
+  -webkit-transition: 1s; -moz-transition: 1s;
+  transition: 1s;}
+
+  #registration .btn:hover{background-color:#35608A; outline:none;  border-radius: 2px; color:#f1f1f1; border:1px solid #f1f1f1;
+  -webkit-transition: 1s; -moz-transition: 1s; transition: 1s; }
 .login {
   display: flex;
   flex-direction: column;
@@ -135,9 +209,9 @@ background: linear-gradient(gray 5%, black 100%);
 }
 .discription{
   position: absolute;
-  width: 45%;
+  width: 35%;
   height: 35%;
-  left: 5%;
+  left: 10%;
   top: 45%;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 21px;
@@ -150,11 +224,10 @@ background: linear-gradient(gray 5%, black 100%);
 p{
   font-family: 'Play', sans-serif;
   font-style: normal;
-  font-weight: 400;
   font-size: 1.2rem;
-  line-height: 2rem;
+  line-height: 1.5rem;
   /* identical to box height, or 133% */
-  color: #ffffff;
+  color: whitesmoke;
   text-align: justify;
 }
 
@@ -169,7 +242,7 @@ p{
   background-position-x: 0;
   background-position-y:0;
   }
-  .captains{
+  #rectangle15{
     position: absolute;
     width: 750px;
     height: 450px;
@@ -179,7 +252,15 @@ p{
     border-radius: 21px;
     padding: 2%;
   }
-
+#t1{
+font-family: 'Quicksand';
+font-style: normal;
+font-weight: 400;
+font-size: 48px;
+line-height: 60px;
+text-align: center;
+color: #FFFFFF;
+}
 
 footer{
   position: absolute;
