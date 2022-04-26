@@ -17,7 +17,7 @@ header {
   top: 0;
   background-color: #35608A;
   width:100%;
-  height:15%;
+  height:150px;
 }
 .topnav {
     position: absolute;
@@ -78,7 +78,7 @@ position: absolute;
 width: 100%;
 height: 90%;
 left: 0px;
-top: 15%;
+top: 150px;
 background: url('media/oulu-100627.jpg');
 background-size: cover;
 background-position-x: 0;
@@ -135,20 +135,24 @@ background: linear-gradient(gray 5%, black 100%);
 }
 .discription{
   position: absolute;
-  width: 750px;
-  height: 300px;
+  width: 45%;
+  height: 35%;
   left: 5%;
   top: 45%;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 21px;
   padding: 2%;
+  overflow: auto;
+}
+.discription::-webkit-scrollbar {
+  width: 12px;
 }
 p{
   font-family: 'Play', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 32px;
+  font-size: 1.2rem;
+  line-height: 2rem;
   /* identical to box height, or 133% */
   color: #ffffff;
   text-align: justify;
@@ -201,8 +205,9 @@ footer{
   }
 
   table{
+    position: absolute;
     width: 70%;
-    margin: 4%;
+    top: 70px;
   }
   
   th{
@@ -228,6 +233,8 @@ footer{
   text-align: center;
   }
 #p{
+position: absolute;
+top: 80%;
 width: 40%;
 height: 24px;
 font-family: 'Play', sans-serif;
