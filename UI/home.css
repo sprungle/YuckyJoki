@@ -252,7 +252,7 @@ p{
     border-radius: 21px;
     padding: 2%;
   }
-#t1{
+#rectangle15 p{
 font-family: 'Quicksand';
 font-style: normal;
 font-weight: 400;
@@ -291,7 +291,7 @@ footer{
     top: 70px;
   }
   
-  th{
+  table th{
   /* lead/font-normal */
   font-family: 'Play', sans-serif;
   font-style: normal;
@@ -303,7 +303,7 @@ footer{
   text-align: center;
 
   }
-  td{
+  table td{
   font-family: 'Play', sans-serif;
   font-style: normal;
   font-weight: 700;
