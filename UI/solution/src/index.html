@@ -1,18 +1,3 @@
-<!--
-Copyright 2020 Google LLC
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
 <!DOCTYPE html>
 <html>
 
@@ -28,7 +13,11 @@ limitations under the License.
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Play&display=swap" rel="stylesheet">
   <script src="app.js"></script>
-  <script src="https://kit.fontawesome.com/81068a9149.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/eab5bdec33.js" crossorigin="anonymous"></script>
+  <script src="/path/to/angular.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="/js/app.js"></script>
   
 </head>
 
@@ -36,7 +25,7 @@ limitations under the License.
   <div class="container">
     <div class="h1"><img src="\img\logo.png" alt="YackyJoki logo" style="float:top-right; width:150px; margin-left:5%;margin-top:1%;">
       <div class="topnav">
-              <a class="active" href="#home">Home</a>
+              <a class="active" href="home.html">Home</a>
               <a href="about.html">About</a>
               <a href="contact.html">Contact</a>
               <input type="text" placeholder="Search..">
@@ -80,6 +69,12 @@ limitations under the License.
         <p id="t1">Passengers waiting</p>
         <div id="passengersTab"></div>
       </div>
+      <div id="msg" ng-controller="mainController">
+          <ul id="mesg"></ul>
+            <input id="m" ng-model="message" autocomplete="off" />
+            <button id="s" ng-click="send()">Send</button>
+      </div>
+      
   <footer class="footer">
     <div class="socialIcons">
         <i class="fa-brands fa-facebook"   style="font-size:30px;text-shadow:1px 1px 2px #000000;"></i>

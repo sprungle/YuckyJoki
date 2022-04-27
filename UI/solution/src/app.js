@@ -30,7 +30,8 @@ function initJS(event){
     const markers = addMarkers(map);
     clusterMarkers(map, markers);    
     addUserMarker(map);
-  });  
+  }); 
+  
   document.getElementById("book").addEventListener("click", updateHiddenP );
   document.getElementById("offer").addEventListener("click", updateHiddenC);
   document.getElementById("clear").addEventListener("click", clearContent);
@@ -102,6 +103,10 @@ function userPosition(position) {
               };
 }
 
+function userMsg(){
+    document.getElementById("msg").style.display= 'block';
+}
+
 function updateHiddenP(event){
   document.getElementById("hidden").style.display = 'block';
   document.getElementById("passengers").style.display = 'flex';
@@ -154,7 +159,7 @@ function addCapTrip() { //tempdatafetch
 function addPassTrip() { //tempdatafetch
   var seats = document.getElementById('seatsP').value + " seats";
   var route = routeToString(users.route);
-  passengerServerSideData.push({usern:"temp",contact:"temp", seats:seats, route:route});
+  passengerServerSideData.push({usern:"temp",contact:"", seats:seats, route:route});
   passengerCall();
   clearContent();  
 }
@@ -178,11 +183,17 @@ function captainCall (){
     tr.appendChild(td0);
     var iconC = document.createElement('a');
     td0.appendChild(iconC);
-    iconC.setAttribute("class", "fa-light fa-sailboat");
+    iconC.setAttribute("class", "fas fa-sailboat");
     var td1 = document.createElement('td');
     tr.appendChild(td1);
     var td2 = document.createElement('td');
     tr.appendChild(td2);
+    var msgbtn = document.createElement('button');
+    msgbtn.setAttribute("id","msgbtn");
+    td2.appendChild(msgbtn);
+    var msg = document.createElement('a');
+    msgbtn.appendChild(msg);
+    msg.setAttribute("class", "fas fa-message");
     var td3 = document.createElement('td');
     tr.appendChild(td3);
     var td4 = document.createElement('td');
@@ -193,11 +204,11 @@ function captainCall (){
     td6.setAttribute("id","td6");
     tr.appendChild(td6);
     td1.innerHTML = captainServerSideData[i].usern;
-    td2.innerHTML = captainServerSideData[i].contact;
     td3.innerHTML = captainServerSideData[i].boattype;
     td4.innerHTML = captainServerSideData[i].seats;
     td5.innerHTML = captainServerSideData[i].price;
     td6.innerHTML = captainServerSideData[i].route;
+
   }
   
 }
@@ -225,13 +236,19 @@ function passengerCall(){
     tr.appendChild(td1);
     var td2 = document.createElement('td');
     tr.appendChild(td2);
+    var msgbtn = document.createElement('button');
+    msgbtn.setAttribute("id","msgbtn");
+    msgbtn.addEventListener("click", userMsg);
+    td2.appendChild(msgbtn);
+    var msg = document.createElement('a');
+    msgbtn.appendChild(msg);
+    msg.setAttribute("class", "fas fa-message");
     var td3 = document.createElement('td');
     tr.appendChild(td3);
     var td4 = document.createElement('td');
     td4.setAttribute("id","td4");
     tr.appendChild(td4);
     td1.innerHTML = passengerServerSideData[i].usern;
-    td2.innerHTML = passengerServerSideData[i].contact;
     td3.innerHTML = passengerServerSideData[i].seats;
     td4.innerHTML = passengerServerSideData[i].route;
 
@@ -265,7 +282,7 @@ function addUserMarker(map){
   const marker ={
     map: map,
     position: users.loc,
-    icon: './img/cap.png',
+    icon: 'img/cap.png',
   }
   new google.maps.Marker(marker);
 }
@@ -332,7 +349,7 @@ function drawTable (){
   }
   var dis = (users.route.length < 2) ? true : false;
   document.getElementById("offer").disabled = dis;
-  document.getElementById("book").disabled = dis;  
+  document.getElementById("book").disabled = dis; 
 }
 function clusterMarkers(map, markers) {
   const clustererOptions = { imagePath: './img/m' };
@@ -346,12 +363,26 @@ function drawCircle(map, location) {
     strokeWeight: 1,
     map: map,
     center: location,
-    radius: 200
+    radius: 400
   }
   const circle = new google.maps.Circle(circleOptions);
   return circle;
 }
+/*
+var app=angular.module('myApp',[]);
 
+app.controller('mainController',['$scope',function($scope){
+ var socket = io.connect();
+ $scope.send = function(){
+  socket.emit('chat message', $scope.message);
+  $scope.message="";
+ }
+ socket.on('chat message', function(msg){
+  var li=document.createElement("li");
+  li.appendChild(document.createTextNode(msg));
+  document.getElementById("messages").appendChild(li);
+ });
+}]);*/
 
 
 
