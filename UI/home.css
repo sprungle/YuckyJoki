@@ -52,11 +52,11 @@ header {
   }
   
   .topnav input[type=text] {
-    float: right;
-    padding: 6px;
+    position: absolute;
+    right: 2%;
+    width:30%;
+    top: 15%;
     border: none;
-    margin-top: 10px;
-    margin-right: 16px;
     font-size: 17px;
   }
   
@@ -79,7 +79,7 @@ header {
 .section1{
 position: absolute;
 width: 100%;
-height: 90%;
+height: 800px;
 left: 0px;
 top: 150px;
 background: url('media/oulu-100627.jpg');
@@ -164,16 +164,16 @@ background-position-y:0;
   justify-content:space-between;
   font-family: 'Raleway', sans-serif;
   position: absolute;
-  width: 40%;
-  height: 20%;
+  width:700px;
+  height: 150px;
   right: 0px;
   top: 10%;
   background: #FFFFFF;
   border-radius: 35px 0px 0px 35px;
-  padding: 2%;
+  padding: 1%;
 }
   input[type=text],input[type=password]{
-    width: 30%;
+    width: 28%;
     height: 40px;
     padding: 5px;
     margin-bottom: 25px;
@@ -198,11 +198,12 @@ border: 1px solid black;
 color: white;
 font-weight: bold;
 cursor: pointer;
-width: 104px;
-height: 48px;
+width: 100px;
+height: 45px;
 border-radius: 5px;
 padding: 10px 0;
 outline:none;
+margin-left: 10px;
 }
 input[type=button]:hover{
 background: linear-gradient(gray 5%, black 100%);
@@ -234,8 +235,8 @@ p{
 .section2{
   position: absolute;
   width: 100%;
-  height:100%;
-  top:105%;
+  height:1000px;
+  top:950px;
   left: 0;
   background: url('media/oulu-2035445.jpg');
   background-size: cover;
@@ -268,9 +269,9 @@ footer{
   flex-direction: column;
   align-items: center;
   padding: 0px;
-  top: 205%;
+  top: 1950px;
   width: 100%;
-  height: 30%;
+  height: 200px;
   background: #35608A;
   }
   .socialIcons {
@@ -315,14 +316,13 @@ footer{
   }
 #p{
 position: absolute;
-top: 80%;
+bottom: 0;
 width: 40%;
-height: 24px;
 font-family: 'Play', sans-serif;
 font-style: normal;
 font-weight: 500;
-font-size: 20px;
-line-height: 24px;
+font-size: 14px;
+line-height: 22px;
 text-align: center;
 }
   

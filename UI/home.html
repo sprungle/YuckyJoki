@@ -12,14 +12,14 @@
 </head>
 <body>
         <header>      
-                <img src="media\logo.png" alt="YackyJoki logo" style="float:top-right; width:190px; margin:20px;">
+                <img src="media\logo.png" alt="YackyJoki logo" style="position: fixed; width:190px; margin:20px;">
                 <div class="topnav">
                         <a class="active" href="#home">Home</a>
                         <a href="solution\src\index.html">Book and Offer</a>
                         <a href="about.html">About</a>
                         <a href="account.html">Account</a>
                         <a href="contact.html">Contact us</a>
-                        <input type="text" placeholder="Search..">
+                        <input id="searchbar" type="text" placeholder="Search..">
                 </div>
         </header>
         <div id="registration">
@@ -186,5 +186,20 @@
                    else {regbtn.style.display= "none";}
                 }
 
-            </script>
+        function search() {
+                let input = document.getElementById('searchbar').value
+                input=input.toLowerCase();
+                let x = document.getElementsById('section1');
+      
+                        for (i = 0; i < x.length; i++) { 
+                                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                                        x[i].style.display="none";
+                        }
+                        else {
+                 x[i].style.color="blue";                 
+        }
+    }
+}
+
+</script>
 </html>

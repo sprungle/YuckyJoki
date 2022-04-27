@@ -18,7 +18,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import MarkerClusterer from '@google/markerclustererplus';
 
 const apiOptions = {
-  apiKey: ""
+  apiKey: 
 }
 
 function initJS(event){
@@ -118,6 +118,7 @@ function updateHiddenP(event){
   document.getElementById("captains").style.display = 'none';
   document.getElementById("box").style.display = 'none';
   document.getElementById("buttons").style.display = 'none';
+  document.getElementById("add").style.display = 'none';
   document.getElementById("tab").style.display = 'none';
 }
   
@@ -126,7 +127,7 @@ function updateHiddenC(event){
   document.getElementById("captains").style.display = 'flex';
   document.getElementById("passengers").style.display = 'none';
   document.getElementById("box").style.display = 'none';
-  document.getElementById("buttons").style.display = 'none';
+  document.getElementById("add").style.display = 'none';
   document.getElementById("tab").style.display = 'none';
 
 }
@@ -134,6 +135,7 @@ function clearContent (event){
   document.getElementById("hidden").style.display = 'none';
   document.getElementById("box").style.display = 'flex';
   document.getElementById("buttons").style.display = 'flex';
+  document.getElementById("add").style.display = 'block';
   document.getElementById("tab").style.display = 'flex';
 }
 

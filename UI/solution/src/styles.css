@@ -1,7 +1,8 @@
 body {
   margin: 0;
-  padding: 0;
+  padding: 0;  
 }
+
 /* online Google font */
 @import url(http://fonts.googleapis.com/css?family=Raleway);
 /* Add a black background color to the top navigation bar */
@@ -11,7 +12,7 @@ body {
   top: 0px;
   background-color: #35608A;
   width:100%;
-  height:6%;
+  height:150px;
 }
 .topnav {
     position: absolute;
@@ -99,7 +100,7 @@ div.container {
 
 div.rectangle14{
   position: absolute;
-  width: 500px;
+  width: 30%;
   height: 40%;
   left: 10%;
   top: 15%;
@@ -156,21 +157,31 @@ input{
 
 #rectangle15{
   position: absolute;
-  width: 750px;
+  width: 40%;
   height: 450px;
   left: 10%;
   top: 60%;
   background: rgba(45, 45, 45, 0.5);
   border-radius: 21px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
   #rectangle16{
     position: absolute;
-    width: 750px;
+    width: 40%;
     height: 450px;
     right: 8%;
     top: 60%;
     background: rgba(45, 45, 45, 0.5);
     border-radius: 21px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#rectangle15::-webkit-scrollbar {
+  width: 5px;
+}
+#rectangle16::-webkit-scrollbar {
+  width: 5px;
 }
 
   #passTab, #capTab{
@@ -202,9 +213,7 @@ input{
 
 #t1{
 position: absolute;
-width: 612px;
-height: 76px;
-left: 29px;
+left: 25%;
 font-family: 'Quicksand';
 font-style: normal;
 font-weight: 400;
@@ -213,23 +222,27 @@ line-height: 60px;
 text-align: center;
 color: #FFFFFF;
 }
+
 #box{
-  position:absolute;
-  color: gray;
-  top: 5%;
-  left: 5%;
-  background:white;
-  width: 60%;
-  height: 10%;
-  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 #loc{
-  margin: 3%;
+  padding: auto;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
+  color: gray;
+  background:white;
+  border-radius: 4px;
+  width: 70%;
+  height: 60px;
 }
 #tabb{
   position: absolute;
@@ -256,39 +269,36 @@ color: #FFFFFF;
   width : 20px;
   text-align: center;
 }
-#add{
-flex-direction: row;
+#buttons{
+display:flex;
+top: 90%;
+left: 45%;
+width: 50%;
+justify-content: space-between;
 align-items: center;
-padding: 10px 20px;
 position: absolute;
-width: 119px;
-height: 40px;
-left: 70%;
-top: 5%;
+
+}
+#add{
+margin-top:15px;
 background: #35608A;
 border-radius: 4px;
 color: white;
-}
-#offer{
-align-items: center;
-padding: 10px 20px;
-position: absolute;
 width: 119px;
 height: 40px;
-left: 70%;
-top: 80%;
+}
+
+#offer{
+width: 119px;
+height: 40px;
 background: #35608A;
 border-radius: 4px;
 color: white;
 }
 #book{
-  align-items: center;
   padding: 10px 20px;
-  position: absolute;
   width: 119px;
   height: 40px;
-  left: 40%;
-  top: 80%;
   background: #35608A;
   border-radius: 4px;
   color: white;
@@ -311,6 +321,7 @@ width: 400px; height:400px; background: rgba(0, 0, 0, 0.5);; padding: 30px; posi
   left: 0px;
   top:100%;
   background: #35608A;
+  overflow: hidden;
   }
   .socialIcons {
     display: flex;
