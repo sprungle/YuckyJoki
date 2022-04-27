@@ -18,7 +18,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import MarkerClusterer from '@google/markerclustererplus';
 
 const apiOptions = {
-  apiKey: ""
+  apiKey: "AIzaSyB0kxzH8w0xqvc7cyjCH3Fidj9my1UllA4"
 }
 
 function initJS(event){
@@ -59,6 +59,7 @@ class user {
     this.userType = userType;
     this.count= 0;
     this.loc= null;
+    this.marker = null;
   }
   addWayPoint(wayPoint){ 
     for(var i=0; i< this.route.length; i++){
@@ -97,10 +98,14 @@ function getLocation() {
   }
 }
 
+setTimeout(() => {getLocation()}, 5000);
+
+
 function userPosition(position) {
   users.loc = { lat: position.coords.latitude, 
                 lng: position.coords.longitude
               };
+  addUserMarker();
 }
 
 function userMsg(){
@@ -284,7 +289,12 @@ function addUserMarker(map){
     position: users.loc,
     icon: 'img/cap.png',
   }
-  new google.maps.Marker(marker);
+  if (users.marker == null)
+    users.marker = new google.maps.Marker(marker);
+  else{
+    users.marker.position = users.loc;
+  }
+  setTimeout(() => {getLocation()}, 5000);
 }
 
 function addMarkers(map) {
@@ -368,7 +378,7 @@ function drawCircle(map, location) {
   const circle = new google.maps.Circle(circleOptions);
   return circle;
 }
-/*
+
 var app=angular.module('myApp',[]);
 
 app.controller('mainController',['$scope',function($scope){
@@ -382,7 +392,7 @@ app.controller('mainController',['$scope',function($scope){
   li.appendChild(document.createTextNode(msg));
   document.getElementById("messages").appendChild(li);
  });
-}]);*/
+}]);
 
 
 
