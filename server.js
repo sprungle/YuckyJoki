@@ -33,36 +33,42 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "/UI/home.html"));
 });
 app.use('/', serveStatic(path.join(__dirname, 'backend/public')));
-
+//__________________________________________________
 app.get("/home.html", function(req, res) {
   res.sendFile(path.join(__dirname, "/UI/home.html"));
 });
 app.use('/home', serveStatic(path.join(__dirname, 'backend/public')));
+//__________________________________________________
 
 app.get("/solution/src/index.html", function(req, res) {
   res.sendFile(path.join(__dirname, "/UI/solution/src/index.html"));
 });
 app.use('/', serveStatic(path.join(__dirname, 'backend/public')));
+//__________________________________________________
 
 app.get("/about.html", function(req, res) {
   res.sendFile(path.join(__dirname, "/UI/about.html"));
 });
 app.use('/about', serveStatic(path.join(__dirname, 'backend/public')));
+//__________________________________________________
 
 app.get("/account.html", function(req, res) {
   res.sendFile(path.join(__dirname, "/UI/account.html"));
 });
 app.use('/registrationForm', serveStatic(path.join(__dirname, 'backend/public')));
+//__________________________________________________
 
 app.get("/contact.html", function(req, res) {
     res.sendFile(path.join(__dirname, "/UI/contact.html"));
   });
 app.use('/contact', serveStatic(path.join(__dirname, 'backend/public')));
+//__________________________________________________
 
 app.get("/registration.html", function(req, res) {
   res.sendFile(path.join(__dirname, "/UI/registration.html"));
 });
 app.use('/registrationForm', serveStatic(path.join(__dirname, 'backend/public')));
+//__________________________________________________
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
