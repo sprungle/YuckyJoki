@@ -107,7 +107,7 @@
                     var cpwd= document.getElementById("t5").value;
                     
             //email id expression code
-                    var pwd_expression = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/;
+                    var pwd_expression = /^(?=.*?[a-z])(?=.*?[0-9])/;
                     var letters = /^[a-zA-Z]{4,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?$/;
                     var numbers = /^[0-9]/;
                     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -161,10 +161,11 @@
                             alert ('Password max length is 12');
                     }
                     else
-                    {				                            
-                   alert('Thank You for Login & You are Redirecting to Campuslife Website');
-                               // Redirecting to other page or webste code. 
-                               window.location = "http://www.campuslife.co.in"; 
+                    {	
+
+                   alert('Thank You for Login');
+                   return;
+
                     }
             }
             function clearFunc()
