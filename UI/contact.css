@@ -12,7 +12,7 @@ body{
     box-sizing: border-box;
     width: 100vw;
     margin: 0 auto;
-    /* overflow-x: hidden; */
+     overflow-x: hidden; 
     display: grid;
     grid-template-rows: 110px 1fr 300px;
   }
@@ -28,8 +28,8 @@ body{
       justify-content: space-between;
   }
   .topnav a{
-      text-decoration: none;
-      color: white;
+      text-decoration: none ;
+      color: black;
 
   }
 .topnav input{
@@ -42,7 +42,8 @@ body{
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      background-color: rgba(29, 29, 24, 1);
+      background-color:     #95918E;
+      
       height:60px;
       align-items: center;
       padding: 0 2rem;
@@ -52,21 +53,26 @@ body{
   }
 
 /* end of header */
-
 .back-img{
-    /* border: 1px solid red; */
-    background-image: url(./contactpage.png);
-    height:771px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-align-items: center;
-
+  border: 1px solid #95918E;
+  background-image: url(./accounts.png);
+  background-size: 1920px 800px;
+  height:771px;
+ 
+  
+  
+  
+ 
+ 
+  
 }
+
+
 .middle-text{
-    color:white;
-    text-align: center;
+    color:rgb(0, 0, 0);
+    text-align: left;
     font-size:  30px;
+    margin-left: 24px;
     
     /* border: 1px solid red; */
 }
@@ -75,7 +81,10 @@ align-items: center;
     padding-left: 1rem;
     display:flex;
     flex-direction: column;
-    gap: 1rem; 
+    gap: 4rem; 
+    align-items: left;
+    
+   
 
 }
 form input{
@@ -85,14 +94,9 @@ border-radius: 10px;
 padding:1rem;
 
 }
-form textarea{
-    width: 90%;
-    height:10rem;
-    border-radius: 10px;
-    padding:1rem;
-    
-}
+
 form button{
+    
     padding: 15px;
     background: rgba(53, 96, 138, 1);
     color:#fff;
@@ -102,16 +106,14 @@ form button{
     cursor: pointer;
     width: 150px;
     margin: 0 auto;
-    margin-bottom:1rem;
+    margin-bottom:2rem;
     border-radius: 5px;
+    margin-left: 0rem;
   
 }
 
 
 
-.footer-text{
-   justify-content:center;
-}
 
 .socialIcons {
     display: flex;
