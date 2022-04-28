@@ -32,11 +32,7 @@ body{
       color: black;
 
   }
-.topnav input{
-    height: 1.5rem;
-    width: 14rem;
-    
-}
+
   .topnav{
       width: 70%;
       display: flex;
@@ -55,7 +51,7 @@ body{
 /* end of header */
 .back-img{
   border: 1px solid #95918E;
-  background-image: url(./accounts.png);
+  background-image: url(./media/accounts.png);
   background-size: 1920px 800px;
   height:771px;
  
