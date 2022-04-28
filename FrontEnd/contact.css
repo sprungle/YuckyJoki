@@ -12,7 +12,7 @@ body{
     box-sizing: border-box;
     width: 100vw;
     margin: 0 auto;
-    /* overflow-x: hidden; */
+     overflow-x: hidden; 
     display: grid;
     grid-template-rows: 110px 1fr 300px;
   }
