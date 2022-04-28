@@ -4,72 +4,153 @@ const express = require("express");
 const bodyParser= require('body-parser');
 const bcrypt = require('bcrypt');
 const app = express();
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json());
 
 // connect to the database
 app.get('/db', async (req, res) => {
+    const { Pool } = require('pg');
+    const pool = (() => {
+        return new Pool({
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
+    })();
+try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM usersInfo;');
+    const results = { 'results': (result) ? result.rows : null};
+    res.json( results );
+    client.release();
+} catch (err) {
+      console.error(err);
+      res.json({ error: err });
+      }
+  });
+// GET home page
+app.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname, "UI/home.html"));
+});
+app.use('/', serveStatic(path.join(__dirname, 'UI')));
+//__________________________________________________
+// POST data from the registration to database
+app.post('/registration', async (req, res) => {
+    const { Pool } = require('pg');
+    const pool = (() => {
+        return new Pool({
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
+    })();
+  try {
+      const {fName, email, phoneNumber,password} = req.body;
+      const hashedPassword = await bcrypt.hash(req.body.password, 10)
+      const client = await pool.connect();
+      client.query('INSERT INTO usersInfo VALUES (DEFAULT,$1, $2, $3,$4)',[fName, email, phoneNumber,hashedPassword]);
+  //const results = { 'results': (result) ? result.rows : null};
+  //res.json( results );
+      client.release();
+  } catch (err) {
+        console.error(err);
+        res.json({ error: err });
+    }
+  });
+
+//__________________________________________________
+// validate login data
+  
+app.post('/login', async (req, res) => {
+    const { Pool } = require('pg');
+    const pool = (() => {
+        return new Pool({
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        }); 
+    })();
+  // find out the user exist or not
+  const {Email, Password} = req.body;
+  const client = await pool.connect();
+  const user = await client.query('SELECT email, password FROM usersInfo WHERE email=$1;',[Email])
+  const loginUser = (user) ? user.rows : null;
+ 
+ //------------this line of code does not work properly-------------------
+  if (loginEmail !== Email) {
+      return res.status(400).send('Incorrect username or password')
+  }
+  // compare the password
+  try {
+
+      if(await bcrypt.compare(req.body.Password, loginUser[0].password)) {
+          client.query('INSERT INTO  loginInfo VALUES ($1);',[Email])
+          res.send('Logged in successfully');
+      } else {
+          res.send('Incorrect username or password')
+        }
+      client.release();
+  } catch (err) {
+      console.error(err);
+      res.json({ error: err });
+      }
+    });
+
+//__________________________________________________
+// GET book or offer page  
+app.get('/index', (req, res) => {
+    res.sendFile(path.join(__dirname, 'solution/src/index.html' ));
+  });
+app.use('/index', serveStatic(path.join(__dirname, 'solution/src')));
+//__________________________________________________
+// GET about oulu river page
+app.get("/about", function(req, res) {
+    res.sendFile(path.join(__dirname, "UI/about.html"));
+});
+app.use('/about', serveStatic(path.join(__dirname, 'UI')));
+//_________________________________________________
+// GET contact page
+app.get('/contact', (req, res) => {
+    res.sendFile(path.join(__dirname, 'UI/contact.html'));
+  });
+app.use('/contact', serveStatic(path.join(__dirname, 'UI')));
+
+//__________________________________________________
+//GET  account page
+app.get('/account', (req, res) => {
+    res.sendFile(path.join(__dirname, 'UI/account.html'));
+  });
+app.use('/account', serveStatic(path.join(__dirname, 'UI')));
+//__________________________________________________
+//UPDATE account page, update user information
+app.put('/account', async (req, res) => {
   const { Pool } = require('pg');
   const pool = (() => {
-  return new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-  rejectUnauthorized: false
-  }
-  });
+      return new Pool({
+          connectionString: process.env.DATABASE_URL,
+          ssl: {
+              rejectUnauthorized: false
+          }
+       });
   })();
   try {
-  const client = await pool.connect();
-  const result = await client.query('SELECT * FROM usersInfo;');
-  const results = { 'results': (result) ? result.rows : null};
-  res.json( results );
-  client.release();
+
+      const {fName, email, phoneNumber} = req.body;
+      const client = await pool.connect();
+      const userAccount = await client.query('SELECT * FROM loginInfo;',[email])
+      const emailAccount = (userAccount) ? userAccount.rows : null;
+      const oldEmail=emailAccount[0].email;
+    
+      client.query('UPDATE TABLE usersInfo SET fName=$1, email=$2, phoneNumber=$3 WHERE email=$4',[fName, email, phoneNumber,oldEmail]);
+      client.release();
   } catch (err) {
-  console.error(err);
-  res.json({ error: err });
-}
+      console.error(err);
+      res.json({ error: err });
+    }
 });
-
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "/UI/home.html"));
-});
-app.use('/', serveStatic(path.join(__dirname, 'backend/public')));
-//__________________________________________________
-app.get("/home.html", function(req, res) {
-  res.sendFile(path.join(__dirname, "/UI/home.html"));
-});
-app.use('/home', serveStatic(path.join(__dirname, 'backend/public')));
-//__________________________________________________
-
-app.get("/solution/src/index.html", function(req, res) {
-  res.sendFile(path.join(__dirname, "/UI/solution/src/index.html"));
-});
-app.use('/', serveStatic(path.join(__dirname, 'backend/public')));
-//__________________________________________________
-
-app.get("/about.html", function(req, res) {
-  res.sendFile(path.join(__dirname, "/UI/about.html"));
-});
-app.use('/about', serveStatic(path.join(__dirname, 'backend/public')));
-//__________________________________________________
-
-app.get("/account.html", function(req, res) {
-  res.sendFile(path.join(__dirname, "/UI/account.html"));
-});
-app.use('/registrationForm', serveStatic(path.join(__dirname, 'backend/public')));
-//__________________________________________________
-
-app.get("/contact.html", function(req, res) {
-    res.sendFile(path.join(__dirname, "/UI/contact.html"));
-  });
-app.use('/contact', serveStatic(path.join(__dirname, 'backend/public')));
-//__________________________________________________
-
-app.get("/registration.html", function(req, res) {
-  res.sendFile(path.join(__dirname, "/UI/registration.html"));
-});
-app.use('/registrationForm', serveStatic(path.join(__dirname, 'backend/public')));
-//__________________________________________________
-
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
 console.log(`Server running on port ${PORT}`);
