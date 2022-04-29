@@ -29,3 +29,13 @@ CREATE TABLE Trips(
 SELECT usersInfo.userId, usersInfo.fName, Trips.BoatType, 
 FROM usersInfo
 INNER JOIN Trips ON usersInfo.userId = Trips.userId;
+
+--create table contact to store contact information
+CREATE TABLE contact (
+    contactId SERIAL,
+    TIMESTAMP,
+    f_name VARCHAR(255) NOT NULL,
+    contact_email VARCHAR(255) NOT NULL,
+    message VARCHAR(255) NOT NULL,
+    PRIMARY KEY (userId)
+);

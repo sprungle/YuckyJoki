@@ -23,15 +23,15 @@
         </header>
         <div id="registration">
                 <button id="clr" onclick="togglePopup()">x</button>
-                <form>
+                <form action="/registration" method="POST">
                         <label>Enter Full Name </label>
-                        <input type="text" placeholder="Enter your full name here" id="t1" class="tb" />
+                        <input type="text" placeholder="Enter your full name here" id="t1" class="tb" required name="fName"/>
                         <label>Enter Email </label>
-                        <input type="text" placeholder="Enter your Email adress here" id="t2" class="tb" />
+                        <input type="text" placeholder="Enter your Email adress here" id="t2" class="tb" required name="email"/>
                         <label>Enter phone number</label>
-                        <input type="tel" placeholder="Enter your phone number here" id="t3" class="tb" />
+                        <input type="tel" placeholder="Enter your phone number here" id="t3" class="tb" required name="phoneNumber"/>
                         <label>Enter Password </label>
-                        <input type="password" placeholder="Enter Password here" id="t4" class="tb" />
+                        <input type="password" placeholder="Enter Password here" id="t4" class="tb"required name="password" />
                         <label>Enter Confirm Password </label>
                         <input type="password" placeholder="Enter Password here" id="t5" class="tb" />
                         <input type="reset" value="Clear Form" onclick="clearFunc()" id="res" class="btn" />
@@ -41,12 +41,12 @@
         </div>
         <div class="section1">
                 <div class="login">
-                        <form method="post" name="loginForm">
+                        <form action="login"  method="POST" name="loginForm">
                                 <label>Username: </label>
-                                <input type="text" name="username" id="username"/>
+                                <input type="text"  required name="Email" id="username"/>
                                 <label>Password :</label>
-                                <input type="password" name="password" id="password"/>
-                                <input type="button" value="Let's Sail!" id="submit" onclick="validate()"/>
+                                <input type="password" required name="Password" id="password"/>
+                                <button type="submit" value="Let's Sail!" id="submit" onclick="validate()">Let's Sail!</button>
                         </form>
                         <a onclick = togglePopup() style="cursor:pointer;"> Not a sailer? Register here</a>
                 </div> 

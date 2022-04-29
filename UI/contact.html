@@ -33,11 +33,11 @@
 </div>
   </div>
 <div class="form-group">
-  <form action="https://formspree.io/f/xyyodvgd" method="POST" id="my-form">
+  <form action="/contact" method="POST" id="my-form">
 
-      <input type="text" id="name" name="name" placeholder="Your Name">
-       <input type="email" id="email" name="email" placeholder="Your email">
-       <textarea name="message" id="message" rows="4" placeholder="Your Query"></textarea>
+      <input type="text" id="name" required name="f_name" placeholder="Your Name">
+       <input type="email" id="email" required name="contact_email" placeholder="Your email">
+       <textarea required name="message" id="message" rows="4" placeholder="Your Query"></textarea>
        <button type="submit">Send</button>
     </form>
   </div>

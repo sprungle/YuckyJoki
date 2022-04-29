@@ -53,6 +53,7 @@ app.post('/registration', async (req, res) => {
       client.query('INSERT INTO usersInfo VALUES (DEFAULT,$1, $2, $3,$4)',[fName, email, phoneNumber,hashedPassword]);
   //const results = { 'results': (result) ? result.rows : null};
   //res.json( results );
+      res.redirect('/')
       client.release();
   } catch (err) {
         console.error(err);
@@ -105,25 +106,34 @@ app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, 'solution/src/index.html' ));
   });
 app.use('/index', serveStatic(path.join(__dirname, 'solution/src')));
-//__________________________________________________
-// GET about oulu river page
-app.get("/about", function(req, res) {
-    res.sendFile(path.join(__dirname, "UI/about.html"));
-});
-app.use('/about', serveStatic(path.join(__dirname, 'UI')));
-//_________________________________________________
-// GET contact page
-app.get('/contact', (req, res) => {
-    res.sendFile(path.join(__dirname, 'UI/contact.html'));
-  });
-app.use('/contact', serveStatic(path.join(__dirname, 'UI')));
 
-//__________________________________________________
-//GET  account page
-app.get('/account', (req, res) => {
-    res.sendFile(path.join(__dirname, 'UI/account.html'));
-  });
-app.use('/account', serveStatic(path.join(__dirname, 'UI')));
+
+//_________________________________________________
+// POST contact page data into database
+
+app.post('/contact', async (req, res) => {
+  const { Pool } = require('pg');
+  const pool = (() => {
+      return new Pool({
+          connectionString: process.env.DATABASE_URL,
+          ssl: {
+              rejectUnauthorized: false
+          }
+      });
+  })();
+try {
+    const {f_name, contact_email,message} = req.body;
+    const client = await pool.connect();
+    client.query('INSERT INTO contact VALUES (DEFAULT,TIMESTAMP,$1, $2, $3)',[f_name, contact_email, message]);
+    //const results = { 'results': (result) ? result.rows : null};
+    //res.json( results );
+    res.redirect('/contact.html')
+    client.release();
+} catch (err) {
+      console.error(err);
+      res.json({ error: err });
+  }
+});
 //__________________________________________________
 //UPDATE account page, update user information
 app.put('/account', async (req, res) => {
@@ -138,13 +148,13 @@ app.put('/account', async (req, res) => {
   })();
   try {
 
-      const {fName, email, phoneNumber} = req.body;
+      const {new_name, new_email, new_phone} = req.body;
       const client = await pool.connect();
-      const userAccount = await client.query('SELECT * FROM loginInfo;',[email])
+      const userAccount = await client.query('SELECT * FROM loginInfo;')
       const emailAccount = (userAccount) ? userAccount.rows : null;
-      const oldEmail=emailAccount[0].email;
+      const oldEmail=emailAccount[0].Email;
     
-      client.query('UPDATE TABLE usersInfo SET fName=$1, email=$2, phoneNumber=$3 WHERE email=$4',[fName, email, phoneNumber,oldEmail]);
+      client.query('UPDATE TABLE usersInfo SET fName=$1, email=$2, phoneNumber=$3 WHERE email=$4',[new_name, new_email, new_phone,oldEmail]);
       client.release();
   } catch (err) {
       console.error(err);
