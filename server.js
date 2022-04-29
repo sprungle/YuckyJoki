@@ -153,7 +153,7 @@ app.put('/account', async (req, res) => {
       const userAccount = await client.query('SELECT * FROM loginInfo;')
       const emailAccount = (userAccount) ? userAccount.rows : null;
       const oldEmail=emailAccount[0].Email;
-    
+      //res.send(oldEmail)
       client.query('UPDATE TABLE usersInfo SET fName=$1, email=$2, phoneNumber=$3 WHERE email=$4',[new_name, new_email, new_phone,oldEmail]);
       client.release();
   } catch (err) {
