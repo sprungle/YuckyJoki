@@ -23,7 +23,7 @@
         </header>
         <div id="registration">
                 <button id="clr" onclick="togglePopup()">x</button>
-                <form action="/registration" method="POST">
+                <form action="/submit" method="POST">
                         <label>Enter Full Name </label>
                         <input type="text" placeholder="Enter your full name here" id="t1" class="tb" required name="fName"/>
                         <label>Enter Email </label>
@@ -41,12 +41,12 @@
         </div>
         <div class="section1">
                 <div class="login">
-                        <form action="login"  method="POST" name="loginForm">
+                        <form action="/login"  method="POST" name="loginForm">
                                 <label>Username: </label>
                                 <input type="text"  required name="Email" id="username"/>
                                 <label>Password :</label>
                                 <input type="password" required name="Password" id="password"/>
-                                <button type="submit" value="Let's Sail!" id="submit" onclick="validate()">Let's Sail!</button>
+                                <input type="submit" value="Let's Sail!" id="submit" >
                         </form>
                         <a onclick = togglePopup() style="cursor:pointer;"> Not a sailer? Register here</a>
                 </div> 

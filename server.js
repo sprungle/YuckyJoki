@@ -36,7 +36,7 @@ app.get("/", function(req, res) {
 app.use('/', serveStatic(path.join(__dirname, 'UI')));
 //__________________________________________________
 // POST data from the registration to database
-app.post('/registration', async (req, res) => {
+app.post('/submit', async (req, res) => {
     const { Pool } = require('pg');
     const pool = (() => {
         return new Pool({
