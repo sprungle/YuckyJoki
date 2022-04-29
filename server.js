@@ -80,8 +80,8 @@ app.post('/login', async (req, res) => {
   const user = await client.query('SELECT email, password FROM usersInfo WHERE email=$1;',[Email])
   const loginUser = (user) ? user.rows : null;
  
- //------------this line of code does not work properly-------------------
-  if (loginEmail !== Email) {
+ //------------this following 3 line3 of code does not work as expected-------------------
+  if (loginUser==null) {
       return res.status(400).send('Incorrect username or password')
   }
   // compare the password
