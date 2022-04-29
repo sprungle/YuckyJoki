@@ -124,7 +124,7 @@ app.post('/contact', async (req, res) => {
 try {
     const {f_name, contact_email,message} = req.body;
     const client = await pool.connect();
-    client.query('INSERT INTO contact VALUES (DEFAULT,TIMESTAMP,$1, $2, $3)',[f_name, contact_email, message]);
+    client.query('INSERT INTO contact VALUES (DEFAULT,now(),$1, $2, $3)',[f_name, contact_email, message]);
     //const results = { 'results': (result) ? result.rows : null};
     //res.json( results );
     res.redirect('/contact.html')
