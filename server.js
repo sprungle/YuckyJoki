@@ -137,30 +137,30 @@ try {
 //__________________________________________________
 //UPDATE account page, update user information
 app.put('/account', async (req, res) => {
-  const { Pool } = require('pg');
-  const pool = (() => {
-      return new Pool({
-          connectionString: process.env.DATABASE_URL,
-          ssl: {
-              rejectUnauthorized: false
-          }
-       });
-  })();
-  try {
-
-      const {new_name, new_email, new_phone} = req.body;
-      const client = await pool.connect();
-      const userAccount = await client.query('SELECT * FROM loginInfo;')
-      const emailAccount = (userAccount) ? userAccount.rows : null;
-      const oldEmail=emailAccount[0].Email;
-      //res.send(oldEmail)
-      client.query('UPDATE TABLE usersInfo SET fName=$1, email=$2, phoneNumber=$3 WHERE email=$4',[new_name, new_email, new_phone,oldEmail]);
-      client.release();
-  } catch (err) {
-      console.error(err);
-      res.json({ error: err });
-    }
-});
+    const { Pool } = require('pg');
+    const pool = (() => {
+        return new Pool({
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+         });
+    })();
+    try {
+  
+        const  {new_name, new_email, new_phone} = req.body;
+        const client = await pool.connect();
+        const userAccount = await client.query('SELECT * FROM loginInfo;')
+        const emailAccount = (userAccount) ? userAccount.rows : null;
+        const oldEmail=emailAccount[0].email;
+        client.query('UPDATE usersInfo SET fName=$1, email=$2, phoneNumber=$3 WHERE email=$4',[new_name, new_email, new_phone,oldEmail]);
+        res.redirect('/')
+        client.release();
+    } catch (err) {
+        console.error(err);
+        res.json({ error: err });
+      }
+  });
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
 console.log(`Server running on port ${PORT}`);
