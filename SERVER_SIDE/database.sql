@@ -33,11 +33,12 @@ INNER JOIN trips ON usersInfo.userId=Trips.userId;
 --create table contact to store contact information
 CREATE TABLE contact (
     contactId SERIAL,
-    TIMESTAMP,
+    contactDate DATE,
     f_name VARCHAR(255) NOT NULL,
     contact_email VARCHAR(255) NOT NULL,
     message VARCHAR(255) NOT NULL,
-    PRIMARY KEY (userId)
+    PRIMARY KEY (contactId)
+
 );
 
 CREATE TABLE Msg (
