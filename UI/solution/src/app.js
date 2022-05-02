@@ -18,7 +18,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import MarkerClusterer from '@google/markerclustererplus';
 
 const apiOptions = {
-  apiKey: 
+  apiKey: ""
 }
 
 function initJS(event){
@@ -36,7 +36,8 @@ function initJS(event){
   document.getElementById("offer").addEventListener("click", updateHiddenC);
   document.getElementById("clear").addEventListener("click", clearContent);
   document.getElementById("addTripC").addEventListener("click", addCapTrip);
-  document.getElementById("addTripP").addEventListener("click", addPassTrip);  
+  document.getElementById("addTripP").addEventListener("click", addPassTrip);
+  document.getElementById("clearMsg").addEventListener("click", clearMsg);    
   document.getElementById("offer").disabled = true;
   document.getElementById("book").disabled = true;
 }
@@ -110,6 +111,9 @@ function userPosition(position) {
 
 function userMsg(){
     document.getElementById("msg").style.display= 'block';
+}
+function clearMsg() {
+  document.getElementById("msg").style.display= 'none';
 }
 
 function updateHiddenP(event){

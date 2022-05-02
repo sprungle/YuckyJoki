@@ -108,10 +108,6 @@ app.get('/index', (req, res) => {
 app.use('/index', serveStatic(path.join(__dirname, 'solution/src')));
 //_________________________________________________
 // POST book ofer page user iput into database
-
-app.get('/index.html', function(req, res, next) {
-    res.render('offer-trip', { title: 'Offer-Trip' });
-  });
    
   app.post('/offer-trip', function(req, res, next) {
     var bname = req.body.bname;
@@ -123,13 +119,10 @@ app.get('/index.html', function(req, res, next) {
       if (err) throw err;
       console.log('record inserted');
       req.flash('success', 'Data added successfully!');
-      res.redirect('/index.html');
+      res.redirect('/');
     });
 });
 
-    app.get('/index.html', function(req, res, next) {
-        res.render('request-trip', { title: 'request-trip' });
-      });
   app.post('/request-trip', function(req, res, next) {
     var seatsP = req.body.seatsP;
        
@@ -138,12 +131,10 @@ app.get('/index.html', function(req, res, next) {
         if (err) throw err;
         console.log('record inserted');
         req.flash('success', 'Data added successfully!');
-        res.redirect('/index.html');
+        res.redirect('/');
   });
 });
-app.get('/index.html', function(req, res, next) {
-    res.render('sendMsg', { title: 'sendMsg' });
-  });
+
 app.post('/sendMsg', function(req, res, next) {
 var msg = req.body.m;
    
@@ -152,7 +143,7 @@ db.query(sql, function(err, result) {
     if (err) throw err;
     console.log('record inserted');
     req.flash('success', 'Data added successfully!');
-    res.redirect('/index.html');
+    res.redirect('/');
 });
 });
 //_________________________________________________
