@@ -106,8 +106,46 @@ app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, 'solution/src/index.html' ));
   });
 app.use('/index', serveStatic(path.join(__dirname, 'solution/src')));
+//_________________________________________________
+// POST book ofer page user iput into database
+   
+  app.post('/offer-trip', function(req, res, next) {
+    var bname = req.body.bname;
+    var seatsC = req.body.seatsC;
+    var currencyField = req.body.currencyField;
+   
+    var sql = `INSERT INTO Trips (boatType, seats, price, created_at) VALUES ("${bname}", "${seatsC}", "${currencyField}", NOW())`;
+    db.query(sql, function(err, result) {
+      if (err) throw err;
+      console.log('record inserted');
+      req.flash('success', 'Data added successfully!');
+      res.redirect('/');
+    });
+});
 
+  app.post('/request-trip', function(req, res, next) {
+    var seatsP = req.body.seatsP;
+       
+    var sql = `INSERT INTO Trips (seats, created_at) VALUES ("${seatsP}", NOW())`;
+    db.query(sql, function(err, result) {
+        if (err) throw err;
+        console.log('record inserted');
+        req.flash('success', 'Data added successfully!');
+        res.redirect('/');
+  });
+});
 
+app.post('/sendMsg', function(req, res, next) {
+var msg = req.body.m;
+   
+var sql = `INSERT INTO Msg (msgContent, created_at) VALUES ("${msg}", NOW())`;
+db.query(sql, function(err, result) {
+    if (err) throw err;
+    console.log('record inserted');
+    req.flash('success', 'Data added successfully!');
+    res.redirect('/');
+});
+});
 //_________________________________________________
 // POST contact page data into database
 
