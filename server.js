@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json());
 
 // connect to the database
-app.get('/db', async (req, res) => {
+app.get('SERVER_SIDE/database.sql', async (req, res) => {
     const { Pool } = require('pg');
     const pool = (() => {
         return new Pool({
@@ -34,6 +34,16 @@ app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "UI/home.html"));
 });
 app.use('/', serveStatic(path.join(__dirname, 'UI')));
+
+
+app.get('/js-api-loader', function(req, res) {
+    res.sendFile(path.join(__dirname, 'node_modules/@googlemaps/js-api-loader/dist/index.min.js'));
+});
+
+app.get('/markerclustererplus', function(req, res) {
+    res.sendFile(path.join(__dirname, 'node_modules/@googlemaps/markerclustererplus/dist/index.min.js'));
+});
+
 //__________________________________________________
 // POST data from the registration to database
 app.post('/submit', async (req, res) => {
@@ -101,50 +111,81 @@ app.post('/login', async (req, res) => {
     });
 
 //__________________________________________________
-// GET book or offer page  
-app.get('/index', (req, res) => {
+// GET book or offer page  /solution/src/request-trip
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'solution/src/index.html' ));
   });
-app.use('/index', serveStatic(path.join(__dirname, 'solution/src')));
-//_________________________________________________
+app.use('/', serveStatic(path.join(__dirname, 'solution/src')));
+
 // POST book ofer page user iput into database
-   
-  app.post('/offer-trip', function(req, res, next) {
-    var bname = req.body.bname;
-    var seatsC = req.body.seatsC;
-    var currencyField = req.body.currencyField;
-   
-    var sql = `INSERT INTO Trips (boatType, seats, price, created_at) VALUES ("${bname}", "${seatsC}", "${currencyField}", NOW())`;
-    db.query(sql, function(err, result) {
-      if (err) throw err;
-      console.log('record inserted');
-      req.flash('success', 'Data added successfully!');
-      res.redirect('/');
+   /*
+app.post('/solution/src/offer-trip', async (req, res) => {
+    const { Pool } = require('pg');
+    const pool = (() => {
+    return new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
     });
-});
+})();
 
-  app.post('/request-trip', function(req, res, next) {
-    var seatsP = req.body.seatsP;
-       
-    var sql = `INSERT INTO Trips (seats, created_at) VALUES ("${seatsP}", NOW())`;
-    db.query(sql, function(err, result) {
-        if (err) throw err;
-        console.log('record inserted');
-        req.flash('success', 'Data added successfully!');
-        res.redirect('/');
-  });
-});
+  try {
+   const {bname, seatsC, currencyField} = req.body;
+   const client = await pool.connect();
+   client.query('INSERT INTO Trips (boatType, seats, price) VALUES ($3, $4, $5)'[bname, seatsC, currencyField]);
+   res.redirect('/solution/src/index.html')
+   client.release();
+    } 
+    catch (err) {
+     console.error(err);
+     res.json({ error: err });
+    }
+    });
 
-app.post('/sendMsg', function(req, res, next) {
-var msg = req.body.m;
-   
-var sql = `INSERT INTO Msg (msgContent, created_at) VALUES ("${msg}", NOW())`;
-db.query(sql, function(err, result) {
-    if (err) throw err;
-    console.log('record inserted');
-    req.flash('success', 'Data added successfully!');
-    res.redirect('/');
-});
+  app.post('/solution/src/request-trip', async (req, res) => {
+    const { Pool } = require('pg');
+    const pool = (() => {
+    return new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+    });
+})();
+
+  try {
+   const {seatsP} = req.body;
+   const client = await pool.connect();
+   client.query('INSERT INTO Trips (seats) VALUES ($4)'[seatsP]);
+   res.redirect('/solution/src/index.html')
+   client.release();
+    } 
+    catch (err) {
+     console.error(err);
+     res.json({ error: err });
+    }
+    });*/
+app.post('/solution/src/sendMsg', async (req, res) => {
+    const { Pool } = require('pg');
+    const pool = (() => {
+    return new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+    });
+})();
+  try{
+      const {m} = req.body;
+client.query('INSERT INTO Msg (msgContent) VALUES ($2)' [m]);
+res.redirect('/solution/src/index.html')
+client.release();
+}
+catch (err) {
+    console.error(err);
+    res.json({ error: err });
+}
 });
 //_________________________________________________
 // POST contact page data into database

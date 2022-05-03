@@ -15,20 +15,20 @@ CREATE TABLE loginInfo (
 );
 
 --create table Trips
-tripId int NOT NULL,
+CREATE TABLE Trips(
+    tripId int NOT NULL,
     userId int NOT NULL,
     boatType varchar(255),
-    seats int(255) NOT NULL,
-    price varchar(255),
-    routes varchar(255) NOT NULL,
-    created_at timestamp NOT NULL DEFAULT current_timestamp(),
-    primary key (tripId),
-    foreign key (userId) REFERENCES usersInfo(userId)
+    seats int NOT NULL,
+    prices varchar(255),
+	routes varchar(255) NOT NULL,
+	primary key(TripId),
+	foreign key(userId) REFERENCES usersInfo(userId)
 );
 ----------------------------------------------------------------
-SELECT usersInfo.userId, usersInfo.fname, Trips.boatType, Trips.seats, Trips.prices, Trips.routes
+SELECT usersInfo.userId, usersInfo.fName, Trips.BoatType, 
 FROM usersInfo
-INNER JOIN trips ON usersInfo.userId=Trips.userId;
+INNER JOIN Trips ON usersInfo.userId = Trips.userId;
 
 --create table contact to store contact information
 CREATE TABLE contact (
@@ -38,13 +38,4 @@ CREATE TABLE contact (
     contact_email VARCHAR(255) NOT NULL,
     message VARCHAR(255) NOT NULL,
     PRIMARY KEY (userId)
-);
-
-CREATE TABLE Msg (
-    msgId int NOT NULL,
-    userId int NOT NULL,
-    msgContent VARCHAR(255) NOT NULL,
-    created_at timestamp NOT NULL DEFAULT current_timestamp(),
-    primary key (msgId),
-    foreign key (userId) REFERENCES usersInfo(userId)
 );

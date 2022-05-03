@@ -14,23 +14,25 @@
  * limitations under the License.
  */
 
-import { Loader } from '@googlemaps/js-api-loader';
-import MarkerClusterer from '@google/markerclustererplus';
+//import '/js-api-loader';
+//import '/markerclustererplus';
 
 const apiOptions = {
-  apiKey: ""
+  apiKey: "AIzaSyB0kxzH8w0xqvc7cyjCH3Fidj9my1UllA4"
 }
 
-function initJS(event){
-  getLocation(); // gets the user location
-  const loader = new Loader(apiOptions);
+var gmap = null;
+
+function initJS(event){  
+  const loader = new window.google.maps.plugins.loader.Loader(apiOptions);
   loader.load().then(() => {
     console.log('Maps JS API loaded');
-    const map = displayMap();
-    const markers = addMarkers(map);
-    clusterMarkers(map, markers);    
-    addUserMarker(map);
-  }); 
+    gmap = displayMap();
+    const markers = addMarkers(gmap);
+    clusterMarkers(gmap, markers);    
+    getLocation(); // gets the user location
+    addUserMarker(gmap);
+  });     
   
   document.getElementById("book").addEventListener("click", updateHiddenP );
   document.getElementById("offer").addEventListener("click", updateHiddenC);
@@ -39,7 +41,7 @@ function initJS(event){
   document.getElementById("addTripP").addEventListener("click", addPassTrip);
   document.getElementById("clearMsg").addEventListener("click", clearMsg);    
   document.getElementById("offer").disabled = true;
-  document.getElementById("book").disabled = true;
+  document.getElementById("book").disabled = true;  
 }
 document.addEventListener("DOMContentLoaded", initJS);
 
@@ -89,7 +91,6 @@ let passenger = 1;
 let users = new user(passenger); //later linked to dbg
 let circle = null;
 
-
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(userPosition);
@@ -99,14 +100,14 @@ function getLocation() {
   }
 }
 
-setTimeout(() => {getLocation()}, 5000);
+setTimeout(() => { getLocation() }, 5000);
 
 
 function userPosition(position) {
   users.loc = { lat: position.coords.latitude, 
                 lng: position.coords.longitude
               };
-  addUserMarker();
+  addUserMarker(gmap);
 }
 
 function userMsg(){
@@ -204,6 +205,7 @@ function captainCall (){
     td2.appendChild(msgbtn);
     var msg = document.createElement('a');
     msgbtn.appendChild(msg);
+    msgbtn.addEventListener("click", userMsg);
     msg.setAttribute("class", "fas fa-message");
     var td3 = document.createElement('td');
     tr.appendChild(td3);
@@ -220,8 +222,7 @@ function captainCall (){
     td5.innerHTML = captainServerSideData[i].price;
     td6.innerHTML = captainServerSideData[i].route;
 
-  }
-  
+  }  
 }
 function passengerCall(){
   var rectangle16 = document.getElementById("rectangle16");
@@ -273,7 +274,7 @@ function displayMap() {
    // mapId: 'map'
   };
   const mapDiv = document.getElementById('map');
-  return new google.maps.Map(mapDiv, mapOptions);
+  return new window.google.maps.Map(mapDiv, mapOptions);
 }
    
 function eventAddWpListener(el, wpIdx){
@@ -289,9 +290,9 @@ function eventAddRemWpListener(el, rtIdx){
     drawTable(); 
   });
 }
-function addUserMarker(map){
+function addUserMarker(mapr){
   const marker ={
-    map: map,
+    map: mapr,
     position: users.loc,
     icon: 'img/cap.png',
   }
@@ -303,11 +304,11 @@ function addUserMarker(map){
   setTimeout(() => {getLocation()}, 5000);
 }
 
-function addMarkers(map) {
+function addMarkers(mapr) {
   const markers = [];
   for(let i=0; i<locations.length; i++) {
     const markerOptions = {
-      map: map,
+      map: mapr,
       position: locations[i].loc,
       icon: './img/custom_pin.png',
       label: locations[i].name
@@ -315,11 +316,11 @@ function addMarkers(map) {
     let marker = new google.maps.Marker(markerOptions);
     marker.addListener('click', event => {
       const location = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-      map.panTo(location);
+      gmap.panTo(location);
       if(circle!=null){
         circle.setMap(null);
       }
-      circle = drawCircle(map, location);
+      circle = drawCircle(mapr, location);
       var element = document.getElementById("loc");
       element.innerHTML = "You selected " + locations[i].name + "; Please add at least 2 stops and maximum 6 stops";
         
@@ -369,7 +370,7 @@ function drawTable (){
 }
 function clusterMarkers(map, markers) {
   const clustererOptions = { imagePath: './img/m' };
-  const markerCluster = new MarkerClusterer(map, markers, clustererOptions);
+  const markerCluster = new window.MarkerClusterer(map, markers, clustererOptions);
 }
 
 function drawCircle(map, location) {
