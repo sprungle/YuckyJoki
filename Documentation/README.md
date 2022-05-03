@@ -7,7 +7,7 @@ YuckyJoki is a school project created in collaboration by five first year IT stu
 __Technologies used__  
 HTML, CSS, JavaScript, Node.js, PostgreSQL.
 
-__Design:__ sprungle, mufidaA, YinanLi1987 
+__Design:__ sprungle, mufidaA, YinanLi1987  
 __Front end:__ mufidaA, iammoeezkhan, maaritlo, YinanLi1987  
 __Back end:__ YinanLi1987, sprungle, mufidaA
 
