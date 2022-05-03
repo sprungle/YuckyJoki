@@ -24,12 +24,16 @@ body {
 }
 .topnav {
   position: absolute;
-  width: 80%;
-  height: 60%;
-  right: 0px;
-  bottom: 0;
-  background: rgb(130, 224, 255);
-  border-radius: 35px 0px 0px 0px;
+    display:flex;
+    align-self: flex end;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    height: 50%;
+    right: 0px;
+    bottom: 0;
+    background: #D8D8D8;
+    border-top-left-radius: 1rem  ;
 
 }
 

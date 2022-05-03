@@ -1,3 +1,4 @@
+
 /* online Google font */
 @import url(https://fonts.googleapis.com/css?family=Raleway);
 /* Add a black background color to the top navigation bar */
@@ -21,12 +22,16 @@ header {
 }
 .topnav {
     position: absolute;
+    display:flex;
+    align-self: flex end;
+    align-items: center;
+    justify-content: space-between;
     width: 80%;
-    height: 60%;
+    height: 50%;
     right: 0px;
     bottom: 0;
     background: #4497F2;
-    border-radius: 35px 0px 0px 0px;
+    border-top-left-radius: 1rem  ;
 
   }
   
