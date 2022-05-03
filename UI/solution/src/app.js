@@ -42,6 +42,7 @@ function initJS(event){
   document.getElementById("clearMsg").addEventListener("click", clearMsg);    
   document.getElementById("offer").disabled = true;
   document.getElementById("book").disabled = true;  
+  updateTables();
 }
 document.addEventListener("DOMContentLoaded", initJS);
 
@@ -157,23 +158,55 @@ function routeToString(route){
 var captainServerSideData = [];
 var passengerServerSideData = [];
 
-function addCapTrip() { //tempdatafetch
-  var bName = document.getElementById('bname').value;
-  var seats = document.getElementById('seatsC').value + " seats";
-  var currencyField = document.getElementById('currencyField').value;
-  var route = routeToString(users.route);
-  captainServerSideData.push({usern:"temp",contact:"temp", boattype:bName, seats:seats, price:currencyField, route: route});
-  captainCall ();
-  clearContent();
-  
+function updateTables(){
+  $.get('/captains', function(data, status){
+    captainServerSideData = [];
+    passengerServerSideData = [];
+    for(var i=0; i<data.trips.length; i++){
+      var trip = data.trips[i];
+      if(trip.price === "") {
+        passengerServerSideData.push({usern:trip.userId,contact:"", 
+        seats:trip.seats, route:trip.routes});
+        
+       }
+      else {
+        captainServerSideData.push( { usern: trip.userId, 
+                                      contact:"", 
+                                      boattype:trip.boatType,
+                                      seats: trip.seats, 
+                                      price: trip.price, 
+                                      route: trip.routes
+                                    });
+       }
+    } 
+    captainCall();
+    passengerCall();
+  });
 }
 
-function addPassTrip() { //tempdatafetch
-  var seats = document.getElementById('seatsP').value + " seats";
+function addCapTrip() {
+  var bName = document.getElementById('bname').value;
+  var seats = document.getElementById('seatsC').value;
+  var currencyField = document.getElementById('currencyField').value;
   var route = routeToString(users.route);
-  passengerServerSideData.push({usern:"temp",contact:"", seats:seats, route:route});
-  passengerCall();
-  clearContent();  
+  $.post('/offer-trip', { userI: 1,
+                          btype: bName, 
+                          seatsP: seats, 
+                          price: currencyField, 
+                          route: route}, 
+                          function (response) { updateTables(); });  
+}
+
+function addPassTrip() {
+  var seats = document.getElementById('seatsP').value;
+  var route = routeToString(users.route);
+  $.post('/request-trip', { userI: 1,
+                            btype: "",
+                            seatsP: seats,
+                            price: "",
+                            route: route 
+                          }, 
+                          function (response) { updateTables(); });
 }
 
 function captainCall (){
@@ -218,8 +251,8 @@ function captainCall (){
     tr.appendChild(td6);
     td1.innerHTML = captainServerSideData[i].usern;
     td3.innerHTML = captainServerSideData[i].boattype;
-    td4.innerHTML = captainServerSideData[i].seats;
-    td5.innerHTML = captainServerSideData[i].price;
+    td4.innerHTML = captainServerSideData[i].seats + " seats";
+    td5.innerHTML = captainServerSideData[i].price + " €";
     td6.innerHTML = captainServerSideData[i].route;
 
   }  
@@ -261,9 +294,8 @@ function passengerCall(){
     td4.setAttribute("id","td4");
     tr.appendChild(td4);
     td1.innerHTML = passengerServerSideData[i].usern;
-    td3.innerHTML = passengerServerSideData[i].seats;
+    td3.innerHTML = passengerServerSideData[i].seats + " pax";
     td4.innerHTML = passengerServerSideData[i].route;
-
   }
 }
 

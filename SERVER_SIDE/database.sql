@@ -20,7 +20,7 @@ CREATE TABLE Trips(
     userId int NOT NULL,
     boatType varchar(255),
     seats int NOT NULL,
-    prices varchar(255),
+    price varchar(255),
 	routes varchar(255) NOT NULL,
 	primary key(TripId),
 	foreign key(userId) REFERENCES usersInfo(userId)
@@ -42,7 +42,7 @@ CREATE TABLE contact (
 );
 
 CREATE TABLE Msg (
-    msgId int NOT NULL,
+    msgId SERIAL,
     userId int NOT NULL,
     msgContent VARCHAR(255) NOT NULL,
     created_at timestamp NOT NULL DEFAULT current_timestamp(),

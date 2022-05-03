@@ -4,12 +4,15 @@ const express = require("express");
 const bodyParser= require('body-parser');
 const bcrypt = require('bcrypt');
 const app = express();
+const { Pool } = require('pg');
+//const cookieParser = require('cookie-parser');
+//app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json());
 
 // connect to the database
 app.get('SERVER_SIDE/database.sql', async (req, res) => {
-    const { Pool } = require('pg');
+
     const pool = (() => {
         return new Pool({
             connectionString: process.env.DATABASE_URL,
@@ -29,12 +32,14 @@ try {
       res.json({ error: err });
       }
   });
+
+var homePath = path.join(__dirname, "UI/home.html");
+
 // GET home page
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "UI/home.html"));
 });
 app.use('/', serveStatic(path.join(__dirname, 'UI')));
-
 
 app.get('/js-api-loader', function(req, res) {
     res.sendFile(path.join(__dirname, 'node_modules/@googlemaps/js-api-loader/dist/index.min.js'));
@@ -44,10 +49,40 @@ app.get('/markerclustererplus', function(req, res) {
     res.sendFile(path.join(__dirname, 'node_modules/@googlemaps/markerclustererplus/dist/index.min.js'));
 });
 
+app.get('/captains', async (req, res) =>  {
+    try{
+        const pool = (() => {
+            return new Pool({
+                connectionString: process.env.DATABASE_URL,
+                ssl: { rejectUnauthorized: false }
+            });
+        })();
+        const client = await pool.connect();
+        client.query('SELECT * FROM Trips;', (err, resp) => {
+            var reply = { trips: [] };
+            if (!err){
+                for(let i = 0; i < resp.rows.length; i++){
+                    var row = resp.rows[i];
+                    reply.trips.push({ tripId: row["tripid"], 
+                                       userId: row["userid"],
+                                       boatType: row["boattype"],
+                                       seats: row["seats"],
+                                       price: row["prices"] != null ? row["prices"] : "",
+                                       routes: row["routes"] });                
+                }
+            } 
+            res.writeHead(200, {"Content-Type": "application/json"});
+            res.end(JSON.stringify(reply));
+        });
+        client.release();
+    } catch(err){
+        console.error(err);
+        res.json({ error: err });
+    }
+});
 //__________________________________________________
 // POST data from the registration to database
 app.post('/submit', async (req, res) => {
-    const { Pool } = require('pg');
     const pool = (() => {
         return new Pool({
             connectionString: process.env.DATABASE_URL,
@@ -75,7 +110,6 @@ app.post('/submit', async (req, res) => {
 // validate login data
   
 app.post('/login', async (req, res) => {
-    const { Pool } = require('pg');
     const pool = (() => {
         return new Pool({
             connectionString: process.env.DATABASE_URL,
@@ -96,9 +130,8 @@ app.post('/login', async (req, res) => {
   }
   // compare the password
   try {
-
       if(await bcrypt.compare(req.body.Password, loginUser[0].password)) {
-          client.query('INSERT INTO  loginInfo VALUES ($1);',[Email])
+          client.query('INSERT INTO loginInfo VALUES ($1);',[Email])
           res.send('Logged in successfully');
       } else {
           res.send('Incorrect username or password')
@@ -112,62 +145,56 @@ app.post('/login', async (req, res) => {
 
 //__________________________________________________
 // GET book or offer page  /solution/src/request-trip
+
+var bookPagePath = path.join(__dirname, 'solution/src/index.html' );
+
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'solution/src/index.html' ));
+    res.sendFile(bookPagePath);
   });
 app.use('/', serveStatic(path.join(__dirname, 'solution/src')));
 
 // POST book ofer page user iput into database
-   
-app.post('/solution/src/offer-trip', async (req, res) => {
-    const { Pool } = require('pg');
+app.post('/offer-trip', async (req, res) => {
     const pool = (() => {
     return new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-    });
-})();
-
-  try {
-   const {bname, seatsC, currencyField} = req.body;
-   const client = await pool.connect();
-   client.query('INSERT INTO Trips VALUES ($3, $4, $5)'[bname, seatsC, currencyField]);
-   res.redirect('/solution/src/index.html')
-   client.release();
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false } });
+    })();
+    try{
+        const {userI, bType, seatsP, price, route} = req.body;
+        const client = await pool.connect();
+        var trows = await client.query('SELECT * FROM Trips;');
+        client.query('INSERT INTO Trips VALUES ($1, $2, $3, $4, $5, $6)', [trows.rows.length, userI, bType, seatsP, price, route]);
+        res.redirect(bookPagePath, 200);
+        client.release();
     } 
     catch (err) {
-     console.error(err);
-     res.json({ error: err });
+        console.error(err);
+        res.json({ error: err });
     }
-    });
+});
 
-  app.post('/solution/src/request-trip', async (req, res) => {
-    const { Pool } = require('pg');
+app.post('/request-trip', async (req, res) => {    
     const pool = (() => {
     return new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-    });
-})();
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false } }); })();
 
-  try {
-   const {seatsP} = req.body;
-   const client = await pool.connect();
-   client.query('INSERT INTO Trips VALUES ($4)'[seatsP]);
-   res.redirect('/solution/src/index.html')
-   client.release();
+    try {
+        const {userI, bType, seatsP, price, route} = req.body;
+        const client = await pool.connect();
+        var trows = await client.query('SELECT * FROM Trips;');
+        client.query('INSERT INTO Trips VALUES ($1, $2, $3, $4, $5, $6)', [trows.rows.length, userI, bType, seatsP, price, route]);
+        res.redirect(bookPagePath, 200);
+        client.release();
     } 
     catch (err) {
-     console.error(err);
-     res.json({ error: err });
+        console.error(err);
+        res.json({ error: err });
     }
-    });
-app.post('/solution/src/send-msg', async (req, res) => {
-    const { Pool } = require('pg');
+});
+
+app.post('/send-msg', async (req, res) => {
     const pool = (() => {
     return new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -178,20 +205,19 @@ app.post('/solution/src/send-msg', async (req, res) => {
 })();
   try{
       const {m} = req.body;
-client.query('INSERT INTO Msg VALUES ($2)' [m]);
-res.redirect('/solution/src/index.html')
-client.release();
-}
-catch (err) {
-    console.error(err);
-    res.json({ error: err });
-}
+      client.query('INSERT INTO Msg VALUES ($1)',[m]);
+      res.redirect(bookPagePath, 200);
+      client.release();
+    }
+    catch (err) {
+        console.error(err);
+        res.json({ error: err });
+    }
 });
 //_________________________________________________
 // POST contact page data into database
 
 app.post('/contact', async (req, res) => {
-  const { Pool } = require('pg');
   const pool = (() => {
       return new Pool({
           connectionString: process.env.DATABASE_URL,
@@ -216,7 +242,6 @@ try {
 //__________________________________________________
 //UPDATE account page, update user information
 app.put('/account', async (req, res) => {
-    const { Pool } = require('pg');
     const pool = (() => {
         return new Pool({
             connectionString: process.env.DATABASE_URL,

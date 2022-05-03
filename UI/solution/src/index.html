@@ -27,7 +27,7 @@
         <a class="active" href="#index">Book and Offer</a>
         <a href="../../about.html">About</a>
         <a href="../../account.html">Account</a>
-        <a href="../../contact.html">Contact</a>
+        <a href="../../contact.html">Contact us</a>
       </div>
     </div>
     <div id="content-wrap">
@@ -44,7 +44,7 @@
         <div id="hidden">
           <button id="clear">x</button>
           <p id="p1">To confirm your trip please check the info below</p>
-          <div id="captains" action="/offer-trip" method="post">
+          <div id="captains">
                <label for="bname">what is your boat type</label>
                <input type="text" id="bname" name="bname" placeholder="Fishing, binghy, bowrider..">
                <label for="seatsC">how many seats remaining?</label>
@@ -53,7 +53,7 @@
                <input type="text" name="currency-field" id="currencyField"  value="" data-type="currency" placeholder="€9.00">
                <button id="addTripC">Confirm trip</button>
           </div>
-          <div id="passengers" action= "/request-trip" method="post">
+          <div id="passengers">
             <label for="seats">how many passenger?</label>
             <input type="number" id="seatsP" name="seatsP"
               min="1" max="99">
