@@ -1,5 +1,5 @@
 /* online Google font */
-@import url(http://fonts.googleapis.com/css?family=Raleway);
+@import url(https://fonts.googleapis.com/css?family=Raleway);
 /* Add a black background color to the top navigation bar */
 @import url('https://rsms.me/inter/inter.css');
 html { font-family: 'Inter', sans-serif; }
@@ -12,7 +12,7 @@ body {
 }
 
 /* online Google font */
-@import url(http://fonts.googleapis.com/css?family=Raleway);
+@import url(https://fonts.googleapis.com/css?family=Raleway);
 /* Add a black background color to the top navigation bar */
 .h1 {
   position: absolute;
