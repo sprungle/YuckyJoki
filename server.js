@@ -118,7 +118,7 @@ app.get('/', (req, res) => {
 app.use('/', serveStatic(path.join(__dirname, 'solution/src')));
 
 // POST book ofer page user iput into database
-   /*
+   
 app.post('/solution/src/offer-trip', async (req, res) => {
     const { Pool } = require('pg');
     const pool = (() => {
@@ -133,7 +133,7 @@ app.post('/solution/src/offer-trip', async (req, res) => {
   try {
    const {bname, seatsC, currencyField} = req.body;
    const client = await pool.connect();
-   client.query('INSERT INTO Trips (boatType, seats, price) VALUES ($3, $4, $5)'[bname, seatsC, currencyField]);
+   client.query('INSERT INTO Trips VALUES ($3, $4, $5)'[bname, seatsC, currencyField]);
    res.redirect('/solution/src/index.html')
    client.release();
     } 
@@ -157,7 +157,7 @@ app.post('/solution/src/offer-trip', async (req, res) => {
   try {
    const {seatsP} = req.body;
    const client = await pool.connect();
-   client.query('INSERT INTO Trips (seats) VALUES ($4)'[seatsP]);
+   client.query('INSERT INTO Trips VALUES ($4)'[seatsP]);
    res.redirect('/solution/src/index.html')
    client.release();
     } 
@@ -165,8 +165,8 @@ app.post('/solution/src/offer-trip', async (req, res) => {
      console.error(err);
      res.json({ error: err });
     }
-    });*/
-app.post('/solution/src/sendMsg', async (req, res) => {
+    });
+app.post('/solution/src/send-msg', async (req, res) => {
     const { Pool } = require('pg');
     const pool = (() => {
     return new Pool({
@@ -178,7 +178,7 @@ app.post('/solution/src/sendMsg', async (req, res) => {
 })();
   try{
       const {m} = req.body;
-client.query('INSERT INTO Msg (msgContent) VALUES ($2)' [m]);
+client.query('INSERT INTO Msg VALUES ($2)' [m]);
 res.redirect('/solution/src/index.html')
 client.release();
 }
