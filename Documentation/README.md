@@ -10,6 +10,3 @@ HTML, CSS, JavaScript, Node.js, PostgreSQL.
 __Design:__ [sprungle](https://github.com/sprungle), [YinanLi1987](https://github.com/YinanLi1987), [mufidaA](https://github.com/mufidaA)  
 __Front end:__ mufidaA, [iammoeezkhan](https://github.com/iammoeezkhan), [maaritlo](https://github.com/maaritlo), YinanLi1987  
 __Back end:__ YinanLi1987, sprungle, mufidaA
-
-
-__How to deploy and use the project code:__
