@@ -33,9 +33,19 @@ INNER JOIN Trips ON usersInfo.userId = Trips.userId;
 --create table contact to store contact information
 CREATE TABLE contact (
     contactId SERIAL,
-    TIMESTAMP,
+    contactDate DATE,
     f_name VARCHAR(255) NOT NULL,
     contact_email VARCHAR(255) NOT NULL,
     message VARCHAR(255) NOT NULL,
-    PRIMARY KEY (userId)
+    PRIMARY KEY (contactId)
+
+);
+
+CREATE TABLE Msg (
+    msgId int NOT NULL,
+    userId int NOT NULL,
+    msgContent VARCHAR(255) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp(),
+    primary key (msgId),
+    foreign key (userId) REFERENCES usersInfo(userId)
 );
